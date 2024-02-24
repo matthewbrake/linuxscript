@@ -1,5 +1,7 @@
 #!/bin/ash
+# ALPINE SETUP SCRIPT
 # ALPINE SETUP SCRIPT FIRST RUN - https://wiki.alpinelinux.org/wiki/Alpine_setup_scripts
+# Update package list and upgrade the system
 # Update package list and upgrade the system
 echo "Updating and upgrading the system..."
 apk update
@@ -25,8 +27,8 @@ apk add openssh
 rc-update add sshd
 service sshd start
 
-# Install open-vm-tools
-echo "Installing open-vm-tools for VMware virtual machines..."
+# Install open-vm-tools for VMware virtual machines
+echo "Installing open-vm-tools..."
 apk add open-vm-tools
 rc-update add open-vm-tools boot
 service open-vm-tools start
@@ -44,11 +46,7 @@ adduser -D user
 echo "user:password" | chpasswd
 echo "user ALL=(ALL) ALL" >> /etc/sudoers
 
-# Optimize the system for Docker
-echo "Optimizing the system for Docker..."
-# (Add any specific optimizations here, depending on your use-case)
-
-# Clean up
+# Perform general system cleanup
 echo "Performing general system cleanup..."
 apk cache clean
 
