@@ -1,4 +1,4 @@
-#!/bin/ash
+!/bin/ash
 # ALPINE SETUP SCRIPT FIRST RUN - https://wiki.alpinelinux.org/wiki/Alpine_setup_scripts
 # Update package list and upgrade the system
 echo "Updating and upgrading the system..."
