@@ -1,5 +1,19 @@
-#!/bin/ash
 # ALPINE SETUP SCRIPT FIRST RUN - https://wiki.alpinelinux.org/wiki/Alpine_setup_scripts
+#!/bin/ash
+
+# Determine the Alpine version
+alpineversion=$(cat /etc/alpine-release | cut -d "." -f 1-2 | awk '{print "v"$1}')
+echo "Alpine version: $alpineversion"
+
+# Add or update repositories in /etc/apk/repositories
+echo "http://dl-cdn.alpinelinux.org/alpine/$alpineversion/main" >> /etc/apk/repositories
+echo "http://dl-cdn.alpinelinux.org/alpine/$alpineversion/community" >> /etc/apk/repositories
+
+# Update package list and upgrade the system
+apk update
+apk upgrade
+
+# [Rest of your script]
 
 # Update package list and upgrade the system
 echo "Updating and upgrading the system..."
