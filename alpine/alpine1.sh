@@ -12,6 +12,9 @@ echo "http://dl-cdn.alpinelinux.org/alpine/$alpineversion/community" >> /etc/apk
 # Update package list and upgrade the system
 apk update
 apk upgrade
+setup-apkrepos -cf
+
+
 
 # [Rest of your script]
 
