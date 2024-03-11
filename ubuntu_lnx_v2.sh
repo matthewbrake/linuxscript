@@ -46,6 +46,11 @@ sudo apt install -y net-tools iptables iptables-persistent firewall-config
 echo "Installing NFS client and server..."
 sudo apt install -y nfs-common nfs-kernel-server
 
+# Install cockpit web manager
+sudo apt-get install cockpit -y
+sudo systemctl enable --now cockpit.socket
+sudo usermod -aG sudo USER
+
 # Install D-Bus for message bus system
 echo "Installing D-Bus..."
 sudo apt install -y dbus
