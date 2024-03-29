@@ -13,6 +13,9 @@ echo "Installing Zsh and plugins..."
 sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions
 sudo apt install zsh zsh-syntax-highlighting zsh-autosuggestions
 
+# Enable?
+# zshrc
+
 # Step 4: Change default shell to Zsh
 echo "Changing default shell to Zsh..."
 chsh -s $(which zsh)
@@ -29,7 +32,14 @@ source ~/.zshrc
 
 echo "Zsh installation and configuration completed successfully."
 
+# Edit file 
+# Plugins included in this file
+# sudo nano ~/.zshrc
+# add the following # plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
+# reload shell source ~/.zshrc
 
+# Unnstall zshrc
+# rm -rf ~/.zsh/ # and any other foler then apt remove zshrc
 ----------------------------------------------------------------------------
 
 #!/bin/bash
