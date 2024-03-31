@@ -75,4 +75,7 @@ chsh -s $(which zsh)
 # Source the updated .zshrc file
 source ~/.zshrc
 
+# Manual
+# zshrc or zsh to start shell 
+
 echo "Zsh, Oh My Zsh, and plugins installed and configured successfully."
