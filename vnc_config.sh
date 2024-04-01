@@ -65,3 +65,42 @@ sudo systemctl enable vncserver@:1.service
 # Step 7: Display VNC Server Status
 echo "VNC server status:"
 sudo systemctl status vncserver@:1.service
+
+
+
+
+
+###### XRDP #####
+#!/bin/bash
+
+# Update package repositories
+echo "Updating package repositories..."
+sudo apt update
+
+# Install XRDP
+echo "Installing XRDP..."
+sudo apt install -y xrdp
+
+# Configure XRDP to use GNOME
+echo "Configuring XRDP to use GNOME..."
+echo "gnome-session" > ~/.xsession
+sudo cp ~/.xsession /etc/xrdp/startwm.sh
+sudo chmod +x /etc/xrdp/startwm.sh
+
+# Restart XRDP service
+echo "Restarting XRDP service..."
+sudo systemctl restart xrdp
+
+# Install Xvnc server
+echo "Installing Xvnc server..."
+sudo apt install -y tightvncserver
+
+# Configure Xvnc with standard resolution for a 26-inch monitor
+echo "Configuring Xvnc with standard resolution for a 26-inch monitor..."
+vncserver :1 -geometry 1920x1080 -depth 24
+
+# Display connection information
+echo "XRDP and Xvnc configured successfully."
+echo "You can now connect to the server using an RDP client with the following address:"
+echo "IP_ADDRESS:3389 (replace IP_ADDRESS with your server's IP)"
+
