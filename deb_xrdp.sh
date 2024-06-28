@@ -25,9 +25,23 @@ echo "Setting up permissions for user 'rdp'..."
 sudo usermod -aG sudo rdp  
 sudo usermod -s /bin/bash rdp  
 
+############## FIND XSESSION NAME #################################
 
-# List xsessions = ls /usr/share/xsessions/
-# Get command to start = grep "Exec" /usr/share/xsessions/$XSESSION OUTPUT ABOVE | cut -d "=" -f 2
+# Method 1 
+[[ -n $SESSION_MANAGER ]] && pid="${SESSION_MANAGER##*/}"
+[[ -n $UPSTART_SESSION ]] && pid="${UPSTART_SESSION##*/}"
+process_name=$(cat /proc/$pid/cmdline)
+pretty_name=$DESKTOP_SESSION
+
+echo "$process_name : $pid : $pretty_name"
+# Method 1
+
+# Method 2
+List xsessions = ls /usr/share/xsessions/
+Get command to start = grep "Exec" /usr/share/xsessions/$XSESSION OUTPUT ABOVE | cut -d "=" -f 2
+# Method 2
+
+
 # Determine xsession by checking for known desktop environments
 echo "Determining xsession by checking for known desktop environments..."
 for desktop in gnome kde xfce lxde mate cinnamon lxqt; do
