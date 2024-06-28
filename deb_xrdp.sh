@@ -25,11 +25,30 @@ echo "Setting up permissions for user 'rdp'..."
 sudo usermod -aG sudo rdp  
 sudo usermod -s /bin/bash rdp  
 
-# Determine xsession (more generic approach)
-echo "Determining xsession for user 'rdp'..."
-XSESSION_CMD=$(find /usr/share/xsessions ~/.local/share/applications /usr/share/applications -name '*.desktop' -exec grep -hE "Exec=([^ ]+)" {} \; | sed 's/Exec=//' | sort | uniq | head -n 1)
+
+# List xsessions = ls /usr/share/xsessions/
+# Get command to start = grep "Exec" /usr/share/xsessions/$XSESSION OUTPUT ABOVE | cut -d "=" -f 2
+# Determine xsession by checking for known desktop environments
+echo "Determining xsession by checking for known desktop environments..."
+for desktop in gnome kde xfce lxde mate cinnamon lxqt; do
+  if [ -f "/usr/share/xsessions/${desktop}.desktop" ]; then
+    XSESSION_CMD=$(grep "Exec" "/usr/share/xsessions/${desktop}.desktop" | cut -d "=" -f 2)
+    break  # Exit loop once a match is found
+  fi
+done
+
+# Fallback to update-alternatives if no desktop file found
+if [ -z "$XSESSION_CMD" ]; then
+  echo "No known desktop file found. Using update-alternatives..."
+  XSESSION_MANAGER=$(sudo update-alternatives --query x-session-manager | grep "Value: " | cut -d" " -f2)
+  XSESSION_CMD=$(basename "$XSESSION_MANAGER")
+fi
+
 echo "Found xsession: $XSESSION_CMD"
 
+# Create xsession file for 'rdp'
+echo "Creating xsession file for user 'rdp'..."
+sudo -u rdp echo "$XSESSION_CMD" > /home/rdp/.xsession
 # Create xsession file for 'rdp'
 echo "Creating xsession file for user 'rdp'..."
 sudo -u rdp echo "$XSESSION_CMD" > /home/rdp/.xsession
