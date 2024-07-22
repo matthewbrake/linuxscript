@@ -32,5 +32,5 @@ done
 echo "Ollama service is running!"
 
 # Specify the model to run (replace 'your_model_name' with the actual model)
-MODEL_TO_RUN="your_model_name" 
+MODEL_TO_RUN="mistral" 
 ollama run "$MODEL_TO_RUN"
