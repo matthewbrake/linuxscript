@@ -40,7 +40,6 @@ mkdir -p /home/user/.ssh && touch /home/user/.ssh/authorized_keys && echo "ssh-r
 echo "-------- DOCKER INSTALLATION --------"
 apt-get install -y curl git
 bash -c "$(curl -fsSL https://get.docker.com)"
-bash -c "$(curl -fsSL https://get.dockstarter.com)"
 systemctl enable docker.service
 systemctl enable containerd.service
 usermod -aG docker $USER  # $USER instead of hardcoded 'user'
