@@ -89,6 +89,8 @@ echo "Zsh, Oh My Zsh, and plugins installed and configured successfully."
 
 
 ADD BELOW TO ~/.alias
+Then I added source "$HOME/.aliases" somewhere around the top of the ~/.zshrc file and
+
 # DietPi-Globals: dietpi-* aliases, G_* functions and variables
 . /boot/dietpi/func/dietpi-globals || { echo -e '[\e[31mFAILED\e[0m] DietPi-Login | Failed to load DietPi-Globals. Skipping DietPi login scripts...'; return 1; }
 
