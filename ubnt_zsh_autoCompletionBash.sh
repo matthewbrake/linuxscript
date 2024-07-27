@@ -137,5 +137,49 @@ alias 1337='echo "Indeed, you are =)"'
 [[ $G_DIETPI_LOGIN ]] || /boot/dietpi/dietpi-login
 
 
+
+
+
+#### NEW #####
+#!/bin/bash
+
+# Define the user variable
+USER="your_username"
+
+# Update and upgrade the system
+sudo apt update && sudo apt upgrade -y
+
+# Install Zsh
+sudo apt-get install -y zsh
+
+# Change the default shell to Zsh for the specified user
+sudo chsh -s /bin/zsh $USER
+
+# Install Oh My Zsh for the specified user
+sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Define the Zsh custom directory
+ZSH_CUSTOM="/home/$USER/.oh-my-zsh/custom"
+
+# Install Powerlevel10k theme
+sudo -u $USER git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM}/themes/powerlevel10k
+
+# Update .zshrc to use Powerlevel10k theme
+sudo -u $USER sed -i 's/ZSH_THEME=".*"/ZSH_THEME="powerlevel10k\/powerlevel10k"/' /home/$USER/.zshrc
+
+# Install Zsh Autosuggestions plugin
+sudo -u $USER git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM}/plugins/zsh-autosuggestions
+
+# Install Zsh Syntax Highlighting plugin
+sudo -u $USER git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting
+
+# Update .zshrc to include the preferred plugins
+sudo -u $USER sed -i 's/plugins=(.*)/plugins=(git history common-aliases zsh-autosuggestions zsh-syntax-highlighting)/' /home/$USER/.zshrc
+
+# Print completion message
+echo "Zsh and Oh My Zsh have been installed and configured for user $USER. Please restart your terminal."
+
+
+
 add 
 source "$HOME/.aliases" somewhere around the top of the ~/.zshrc file and
