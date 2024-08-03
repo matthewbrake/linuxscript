@@ -49,8 +49,7 @@ time \
 watch \
 whois \
 zstd \
-parallel \ 
-bleachbit \
+parallel \
 parted \
 udisks2 \
 dmraid \
@@ -81,21 +80,17 @@ e2fsprogs \
 jfsutils \
 testdisk \
 bleachbit \
-deborphan \ 
-dislocker \
-cfdisk \
-ddrescue \
+deborphan \
 gddrescue \
 partclone \
-linux-utils \
 rsync \
-lsblk \
 exfat-fuse \
 fuse3 \
 rclone \
 rclone-browser \
 dosfstools \
 sg3-utils
+
 
 sudo useradd -m -s /bin/bash ssh && echo 'ssh:password' | sudo chpasswd && sudo usermod -aG root,ssh,sudo,docker ssh
 
