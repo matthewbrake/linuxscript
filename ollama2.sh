@@ -1,6 +1,13 @@
 #!/bin/bash
+# Wait for a specific environment variable to be set
+while [ -z "$MODEL" ]; do
+  echo "Waiting for MODEL environment variable..."
+  sleep 1
+done
 
-MODEL_TO_RUN="llama3"
+echo "Using model: $MODEL"
+
+#MODEL="llama3"
 
 echo "Installing Ollama..."
 curl -fsSL https://ollama.com/install.sh | sh
@@ -20,8 +27,8 @@ done
 
 echo "Ollama server is up!"
 
-echo "Installing model $MODEL_TO_RUN..."
-ollama pull "$MODEL_TO_RUN"
+echo "Installing model $MODEL..."
+ollama pull "$MODEL"
 
 echo "Ollama service is running!"
 echo "To interact with the model, use the 'ollama' command."
