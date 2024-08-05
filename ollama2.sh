@@ -33,5 +33,22 @@ ollama pull "$MODEL"
 echo "Ollama service is running!"
 echo "To interact with the model, use the 'ollama' command."
 
+# Add a slight pause before running the next commands
+sleep 2
+
+# List available Ollama models
+echo "Listing available Ollama models:"
+ollama list
+
+# Add a slight pause
+sleep 1
+
+# Show NVIDIA stats
+echo "NVIDIA stats:"
+nvidia-smi
+
+# Add a final pause before tailing the log
+sleep 1
+
 # Keep the container running by tailing the log
 tail -f /ollama.log
