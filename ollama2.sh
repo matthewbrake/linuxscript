@@ -6,13 +6,18 @@ curl -fsSL https://ollama.com/install.sh | sh
 
 # Set OLLAMA_HOST environment variable
 export OLLAMA_HOST=0.0.0.0
-export OLLAMA_KEEP_ALIVE=24hr
+
 echo "Installing model $MODEL_TO_RUN..."
 ollama pull "$MODEL_TO_RUN"
 
 # Start Ollama server in the background 
 (ollama serve > ollama.log 2>&1) &
 
+# Ensure the Ollama service starts, retrying if necessary
+until curl -s http://localhost:11434 | grep -q "Ollama"; do
+  echo "Ollama service not yet active. Waiting 5 seconds..."
+  sleep 5
+done
+
 echo "Ollama service is running!"
-echo "Running model $MODEL_TO_RUN..."
-ollama run "$MODEL_TO_RUN"
+echo "To interact with the model, use the 'ollama' command."
