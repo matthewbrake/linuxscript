@@ -4,7 +4,10 @@ sudo umount /media/devmon/boot
 # Step 2: Mount the boot partition of the image
 mkdir -p ~/img_mount/boot  # Create a mount point if it doesn't exist
 sudo mount -o loop,offset=$((8192 * 512)) /HDD3/ROMS/Tomato\ Amiga\ Retropie\ 64GB\ 2024/TO.img ~/img_mount/boot
-
+sudo mount --bind /dev ~/img_mount/boot/dev
+sudo mount --bind /proc ~/img_mount/boot/proc
+sudo mount --bind /sys ~/img_mount/boot/sys
+sudo cp /etc/resolv.conf ~/img_mount/boot/etc/resolv.conf
 # Step 3: Mount the USB boot partition
 sudo mount /dev/sda1 /media/devmon/boot  # Adjust if your USB device is different
 
