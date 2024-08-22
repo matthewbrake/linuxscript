@@ -54,7 +54,11 @@ fi
 sudo systemctl restart xrdp
 sudo systemctl enable xrdp
 
+# Set Lockscreen to never 
+gsettings set org.cinnamon.desktop.session idle-delay 0
+
 # 6. Verify xrdp service status
 sudo systemctl status xrdp
+
 
 echo "xrdp setup complete. You can now connect to this system using RDP."
