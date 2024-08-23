@@ -63,4 +63,9 @@ sudo docker ps -a | grep portainer
 echo "Checking if /dev/sda1 is mounted:"
 mount | grep /dev/sda1
 
+
+# CHECK MOUNT
+mount | grep sda1
+lsof /HDD2
+
 echo "Script completed."
