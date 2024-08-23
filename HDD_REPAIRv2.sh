@@ -16,8 +16,8 @@ get_mount_points() {
 list_drives
 
 # Ask user which drive to repair
-read -p "Which drive would you like to repair? (e.g., sda1): " drive
-drive="/dev/$drive"
+read -p "Which drive would you like to repair? (e.g., sda1): " drive_name
+drive="/dev/$drive_name"
 
 # Verify the drive exists
 if [ ! -b "$drive" ]; then
@@ -87,7 +87,12 @@ sudo docker ps -a | grep portainer
 echo "Checking if $drive is mounted:"
 mount | grep "$drive"
 
-# CHECK MOUNT
-lsof "$mount_points"
+# CHECK MOUNT (Corrected to use the first mount point if available)
+if [ ! -z "$mount_points" ]; then
+  first_mount_point=$(echo "$mount_points" | awk '{print $1}')
+  lsof "$first_mount_point"
+else
+  echo "No mount points found for $drive"
+fi
 
 echo "Script completed."
