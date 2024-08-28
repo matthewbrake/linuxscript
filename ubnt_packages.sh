@@ -14,7 +14,7 @@ echo "Installing dependicences..."
 echo "Installing utilities..."
 sudo apt install -y \
     curl wget unzip git htop vim nano \
-    build-essential make gcc g++ \
+    build-essential open-vm-tools make gcc g++ \
     software-properties-common \
     ncdu tree tmux screen \
     zip unzip rar unrar \
