@@ -10,6 +10,7 @@ sudo apt autoremove -y
 
 sudo apt install -y \
 build-essential \
+open-vm-tools \
 busybox \
 git \
 curl \
