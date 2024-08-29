@@ -122,4 +122,39 @@ bash -c "$(curl -fsSL https://get.docker.com)"
 sudo systemctl enable docker.service && sudo systemctl enable containerd.service
 sudo usermod -aG docker user
 
+# Docker Containers Core
+docker run -d \
+  -p 8000:8000 \
+  -p 9443:9443 \
+  --name portainer_server \
+  --restart=always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v portainer_data:/data \
+  portainer/portainer-ce:latest && \
+docker run -d \
+  --name filebrowser \
+  -p 8085:80 \
+  -v filebrowser_data:/config \
+  -v filebrowser_db:/database \
+  -v /:/srv \
+  --restart unless-stopped \
+  filebrowser/filebrowser:v2.23.0 && \
+docker run -d \
+  --name watchtower \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -e WATCHTOWER_CLEANUP=true \
+  -e WATCHTOWER_INCLUDE_STOPPED=true \
+  -e WATCHTOWER_POLL_INTERVAL=3000 \
+  -e WATCHTOWER_REVIVE_STOPPED=false \
+  --restart unless-stopped \
+  containrrr/watchtower:latest && \
+docker run -d \
+  --name cloudflare_tunnel \
+  -e TUNNEL_EDGE_IP_VERSION=4 \
+  -e TUNNEL_LOGLEVEL=debug \
+  -e TUNNEL_METRICS=0.0.0.0:60123 \
+  -e TUNNEL_TOKEN=eyJhIjoiZjBiMGZiNTIxZTk0ZTkxYTQzY2VmMmNlNjYxYTlhYWEiLCJ0IjoiYzEyOGQxYzktNjllZi00M2Y1LTgxNDYtMzhjNDA2NzZhYzQ5IiwicyI6Ik0yUTRPREJqTnpFdE5UTmpNaTAwWlRNd0xXSXhaamd0WXpjMVlUTTBaR0kyWVRnMCJ9 \
+  -e TUNNEL_TRANSPORT_PROTOCOL=auto \
+  --restart none \
+  cloudflare/cloudflared:latest tunnel run
 
