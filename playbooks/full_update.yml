@@ -1,0 +1,40 @@
+---
+- name: System Maintenance Playbook
+  hosts: all  # Change this to your specific host group if needed
+  become: true  # Use become to run tasks with sudo privileges
+  tasks:
+    - name: Clean apt cache
+      apt:
+        command: clean
+
+    - name: Update apt package index
+      apt:
+        update_cache: yes
+
+    - name: Perform dist-upgrade
+      apt:
+        upgrade: dist
+
+    - name: Upgrade installed packages
+      apt:
+        upgrade: yes
+
+    - name: Fix broken dependencies
+      apt:
+        fix_broken: yes
+
+    - name: Autoclean apt cache
+      apt:
+        autoclean: yes
+
+    - name: Remove unnecessary packages
+      apt:
+        autoremove: yes
+
+    - name: Configure all partially installed packages
+      command: dpkg --configure -a
+
+    - name: Install any missing dependencies
+      apt:
+        install_recommends: yes
+        state: present
