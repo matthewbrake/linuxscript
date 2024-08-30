@@ -5,7 +5,7 @@
   tasks:
     - name: Clean apt cache
       apt:
-        command: clean
+        clean: yes  # Correctly using the 'clean' parameter
 
     - name: Update apt package index
       apt:
