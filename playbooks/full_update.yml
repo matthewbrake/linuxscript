@@ -3,10 +3,6 @@
   hosts: all  # Change this to your specific host group if needed
   become: true  # Use become to run tasks with sudo privileges
   tasks:
-    - name: Clean apt cache
-      apt:
-        clean: yes  # Correctly using the 'clean' parameter
-
     - name: Update apt package index
       apt:
         update_cache: yes
