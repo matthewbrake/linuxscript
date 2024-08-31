@@ -4,18 +4,18 @@
   become: yes
   become_method: sudo
   become_user: root
+
   tasks:
     - name: Update apt package index
       apt:
         update_cache: yes
+      changed_when: false  # This operation always reports as changed, so we suppress it
 
     - name: Perform dist-upgrade
       apt:
         upgrade: dist
-
-    - name: Upgrade installed packages
-      apt:
-        upgrade: yes
+      register: dist_upgrade
+      changed_when: dist_upgrade.upgraded
 
     - name: Fix broken dependencies
       apt:
@@ -31,8 +31,13 @@
 
     - name: Configure all partially installed packages
       command: dpkg --configure -a
+      changed_when: false  # This command doesn't actually change anything unless there are issues
 
     - name: Install any missing dependencies
       apt:
         install_recommends: yes
-        state: present
+
+  handlers:
+    - name: Reboot system
+      reboot:
+      when: dist_upgrade.changed
