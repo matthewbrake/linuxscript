@@ -1,7 +1,9 @@
 ---
 - name: System Maintenance Playbook
   hosts: all  # Change this to your specific host group if needed
-  become: true  # Use become to run tasks with sudo privileges
+  become: yes
+  become_method: sudo
+  become_user: root
   tasks:
     - name: Update apt package index
       apt:
