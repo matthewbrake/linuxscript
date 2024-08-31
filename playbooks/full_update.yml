@@ -6,16 +6,20 @@
   become_user: root
 
   tasks:
-    - name: Update and upgrade system
+    - name: Update apt package cache and upgrade system
       apt:
         update_cache: yes
         upgrade: full
-        dist_upgrade: yes
         autoremove: yes
         autoclean: yes
-        fix_broken: yes
         install_recommends: yes
       register: apt_result
+
+    - name: Fix broken packages if any
+      command: apt --fix-broken install
+      register: fix_broken
+      changed_when: "'0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.' not in fix_broken.stdout"
+      when: apt_result.changed
 
     - name: Clean apt cache and configure packages
       shell: |
@@ -35,4 +39,4 @@
   handlers:
     - name: Reboot system
       reboot:
-      when: reboot_required.stat.exists or apt_result.changed
+      when: reboot_required.stat.exists or apt_result.changed or fix_broken.changed
