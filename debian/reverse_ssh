@@ -1,0 +1,121 @@
+To set up a reverse SSH tunnel using `autossh` for connecting to a remote server without opening ports or port forwarding, follow these steps. This configuration will be done on both the remote machine and the host machine, and the tunnel will be managed as a service.
+
+### Remote Machine Configuration
+
+1. **Install autossh**:
+```bash
+# Update package lists
+sudo apt update 
+
+# Install autossh
+sudo apt install -y autossh
+```
+
+2. **Generate SSH Key Pair**:
+```bash
+# Create a directory for the SSH keys
+sudo mkdir -p /etc/sshtunnel 
+
+# Generate an SSH key pair without a passphrase
+sudo ssh-keygen -qN "" -f /etc/sshtunnel/id_rsa
+```
+
+3. **Create a systemd service**:
+```bash
+# Create a service file for autossh
+sudo tee /etc/systemd/system/sshtunnel.service > /dev/null <<EOL
+[Unit]
+Description=Persistent Reverse SSH Tunnel
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=$(whoami)
+ExecStart=/usr/bin/autossh -M 0 -N -o "ServerAliveInterval 30" \
+-o "ServerAliveCountMax 3" -R 2222:localhost:22 user@<HOST_IP>
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOL
+```
+
+4. **Enable and start the service**:
+```bash
+# Enable the service to start on boot
+sudo systemctl enable sshtunnel 
+
+# Start the service
+sudo systemctl start sshtunnel 
+```
+
+### Host Machine Configuration
+
+1. **Install SSH server** (if not already installed):
+```bash
+# Update package lists
+sudo apt update 
+
+# Install OpenSSH server
+sudo apt install -y openssh-server
+```
+
+2. **Configure SSH to allow remote port forwarding**:
+```bash
+# Edit the SSH daemon configuration
+sudo nano /etc/ssh/sshd_config
+
+# Uncomment or add the following line
+GatewayPorts yes
+
+# Save and exit
+```
+
+3. **Restart the SSH service**:
+```bash
+# Restart the SSH service to apply changes
+sudo systemctl restart sshd
+```
+
+### Mount Remote File Share (Optional)
+
+If you want to mount a remote file share from the remote machine, you can add an entry in `/etc/fstab` on the host machine:
+
+1. **Edit fstab**:
+```bash
+# Open fstab for editing
+sudo nano /etc/fstab
+
+# Add the following line (replace <HOST_IP> and <REMOTE_DIR> accordingly)
+<HOST_IP>:<REMOTE_DIR> /mnt/remote nfs defaults 0 0
+```
+
+2. **Mount the remote share**:
+```bash
+# Mount all filesystems in fstab
+sudo mount -a
+```
+
+### Environment Variables
+
+You can replace `<HOST_IP>` with an environment variable if desired. For example, you can set it in your `.bashrc` or `.bash_profile`:
+
+```bash
+export HOST_IP="your.host.ip.address"
+```
+
+Then, use `$HOST_IP` in your service file and fstab configuration.
+
+This setup allows you to connect to the remote machine via SSH without needing to open ports on the remote server or configure port forwarding. The reverse SSH tunnel will automatically reconnect if it drops.
+
+Sources
+[1] Setup Reverse SSH Tunnels - Holistics 2.0 Docs https://docs-v2.holistics.io/docs/tunnel-setup
+[2] Create a reverse SSH tunnel for remote access to a restricted Linux ... https://dev.to/bulletmark/create-a-reverse-ssh-tunnel-for-remote-access-to-a-restricted-machine-1ma0
+[3] Reverse SSH Tunneling: From Start to End - JFrog Connect https://jfrog.com/connect/post/reverse-ssh-tunneling-from-start-to-end/
+[4] Linux - AutoSSH | English - Keeper Docs Portal https://docs.keeper.io/en/v/keeper-connection-manager/supported-protocols/persistent-reverse-ssh-tunnel/connecting-via-reverse-ssh-tunnel-1
+[5] check and auto re establish reverse ssh tunnel - Stack Overflow https://stackoverflow.com/questions/52108101/check-and-auto-re-establish-reverse-ssh-tunnel
+[6] Mosh Shell - A SSH Based Client for Connecting Remote Unix/Linux Systems https://www.tecmint.com/mosh-shell-ssh-alternative-on-linux/
+[7] Mosh: the mobile shell https://mosh.org
+[8] How do I setup Mosh server access? https://forum.remote.it/t/how-do-i-setup-mosh-server-access/875
