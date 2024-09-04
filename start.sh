@@ -30,7 +30,8 @@ echo "-------- SYSTEM UPDATE AND UPGRADE --------"
 sudo apt clean && \
 sudo apt update && \
 sudo apt dist-upgrade -y && \
-sudo apt upgrade && \
+sudo apt full-upgrade -y && \
+sudo apt upgrade -y && \
 sudo apt --fix-broken install && \
 sudo apt autoclean && \
 sudo apt autoremove -y
