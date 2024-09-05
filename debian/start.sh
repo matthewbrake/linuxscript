@@ -32,6 +32,7 @@ sudo apt dist-upgrade -y && \
 sudo apt full-upgrade -y && \
 sudo apt upgrade -y && \
 sudo apt --fix-broken install && \
+sudo dpkg --configure -a && \
 sudo apt autoclean && \
 sudo apt autoremove -y
 
