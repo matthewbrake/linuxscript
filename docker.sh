@@ -2,7 +2,7 @@
 
 echo "Installing Docker"
 sudo apt-get update
-sudo apt-get dist-upgrade
+sudo apt-get upgrade -y
 sudo apt-get install curl git
 bash -c "$(curl -fsSL https://get.docker.com)"
 sudo apt install docker-compose
