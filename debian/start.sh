@@ -3,7 +3,7 @@ echo "-------- CORE UTILITIES --------"
 sudo apt install -y mc screen jq nmap netcat telnet redis-tools sysdig ethtool iptraf-ng iftop ngrep nload socat dnsutils netcat-openbsd strace ltrace tcpdump vnstat dstat iproute2 traceroute mtr-tiny iotop usbutils hwinfo htop glances bmon nmon powertop smem usbtop network-manager bleachbit moreutils pv cut paste sed grep awk xargs rlwrap less bat exa fd-find ripgrep sd silversearcher-ag zoxide ranger lsd \
 bc tree wcalc units figlet toilet cmatrix aview elinks lynx w3m links2 links nethogs speedtest-cli mtr filezilla ncdu glances atop atopacct lnav lnav-extras glances hstr byobu tmux mosh asciinema asciinema-player youtube-dl yt-dlp \
 wget curl aria2 axel httpie procs psutil glances atop iotop iftop nethogs bpytop bashtop glances goaccess ccze lolcat pv tree lnav bat exa fd-find ripgrep genisoimage clonezilla p7zip-full \
-  
+qemu-system qemu-utils
 echo "-------- DEVELOPMENT TOOLS --------"
 sudo apt install -y build-essential busybox git curl wget vim nano htop tree gnupg software-properties-common apt-transport-https ca-certificates openssl jq dnsutils net-tools iputils-ping tcpdump iptables traceroute uuid-runtime zip unzip tar gzip bzip2 xz-utils file gnupg2 gawk gettext locales strace lsof sysstat time watch whois zstd parallel multitail vnstat \
 
