@@ -208,7 +208,8 @@ pikaur \                   # AUR helper for Arch Linux
 neovim \                   # Modern text editor based on Vim
 thefuck \                  # Corrects errors in previous console commands
 detox \                    # Renames files to make them more usable
-
+qemu-system \  # Quick Emulater 
+qemu-tools \
 # Additional Tools
 sudo apt install --ignore-missing -y \
 bash \                     # GNU Bourne Again SHell
