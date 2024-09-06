@@ -95,8 +95,7 @@ sudo usermod -u 1000 user
 sudo usermod -g 1000 user
 
 # Add entry to sudoers file to avoid password prompt for users in group 'user'
-sed -i 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%user ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
-
+sudo sed -i 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%sudo\tALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers
 # Alternative method using visudo (recommended)
 # visudo -f /etc/sudoers -c 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%user ALL=(ALL) NOPASSWD: ALL/'
 
