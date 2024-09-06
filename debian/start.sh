@@ -1,4 +1,3 @@
-```bash
 echo "-------- CORE UTILITIES --------"
 sudo apt install -y mc screen jq nmap netcat telnet redis-tools sysdig ethtool iptraf-ng iftop ngrep nload socat dnsutils netcat-openbsd strace ltrace tcpdump vnstat dstat iproute2 traceroute mtr-tiny iotop usbutils hwinfo htop glances bmon nmon powertop smem usbtop network-manager bleachbit moreutils pv cut paste sed grep awk xargs rlwrap less bat exa fd-find ripgrep sd silversearcher-ag zoxide ranger lsd \
 bc tree wcalc units figlet toilet cmatrix aview elinks lynx w3m links2 links nethogs speedtest-cli mtr filezilla ncdu glances atop atopacct lnav lnav-extras glances hstr byobu tmux mosh asciinema asciinema-player youtube-dl yt-dlp \
@@ -36,7 +35,6 @@ sudo dpkg --configure -a && \
 sudo apt autoclean && \
 sudo apt autoremove -y
 
-```bash
 # User Management
 echo "-------- USER MANAGEMENT --------"
 
@@ -93,4 +91,3 @@ sudo systemctl restart sshd
 # Restart SSH service (if necessary)
 sudo systemctl restart ssh
 
-```
