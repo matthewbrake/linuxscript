@@ -85,14 +85,24 @@ sudo usermod -aG docker user
 
 echo "-------- DOCKER CORE CONTAINERS --------"
 # Docker Containers Core
+# Portainer Server
+#docker run -d \
+ # --name portainer_server \
+  #-p 8000:8000 \
+  #-p 9443:9443 \
+  #-v /var/run/docker.sock:/var/run/docker.sock \
+  #-v portainer_data:/data \
+  #--restart=always \
+  #portainer/portainer-ce:latest && \
+# Portainer Node
 docker run -d \
-  -p 8000:8000 \
-  -p 9443:9443 \
-  --name portainer_server \
-  --restart=always \
+  --name portainer_agent \
+  -p 9001:9001 \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  -v portainer_data:/data \
-  portainer/portainer-ce:latest && \
+  -v /var/lib/docker/volumes:/var/lib/docker/volumes \
+  --restart=always \
+  portainer/agent:2.20.3 && \
+  # File Browser
 docker run -d \
   --name filebrowser \
   -p 8085:80 \
@@ -101,15 +111,17 @@ docker run -d \
   -v /:/srv \
   --restart unless-stopped \
   filebrowser/filebrowser:v2.23.0 && \
+  # Watch Tower
 docker run -d \
   --name watchtower \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -e WATCHTOWER_CLEANUP=true \
   -e WATCHTOWER_INCLUDE_STOPPED=true \
-  -e WATCHTOWER_POLL_INTERVAL=3000 \
+  -e WATCHTOWER_POLL_INTERVAL=300000 \
   -e WATCHTOWER_REVIVE_STOPPED=false \
   --restart unless-stopped \
   containrrr/watchtower:latest && \
+  # Cloudflard Tunnel
 docker run -d \
   --name cloudflare_tunnel \
   -e TUNNEL_EDGE_IP_VERSION=4 \
@@ -117,6 +129,33 @@ docker run -d \
   -e TUNNEL_METRICS=0.0.0.0:60123 \
   -e TUNNEL_TOKEN=eyJhIjoiZjBiMGZiNTIxZTk0ZTkxYTQzY2VmMmNlNjYxYTlhYWEiLCJ0IjoiYzEyOGQxYzktNjllZi00M2Y1LTgxNDYtMzhjNDA2NzZhYzQ5IiwicyI6Ik0yUTRPREJqTnpFdE5UTmpNaTAwWlRNd0xXSXhaamd0WXpjMVlUTTBaR0kyWVRnMCJ9 \
   -e TUNNEL_TRANSPORT_PROTOCOL=auto \
-  --restart none \
-  cloudflare/cloudflared:latest tunnel run
+  --restart no \
+  cloudflare/cloudflared:latest tunnel run && \
+  # Netdata Node
+docker run -d \
+  --name=netdata_node \
+  --pid=host \
+  --network=host \
+  -v netdataconfig:/etc/netdata \
+  -v netdatalib:/var/lib/netdata \
+  -v netdatacache:/var/cache/netdata \
+  -v /etc/passwd:/host/etc/passwd:ro \
+  -v /etc/group:/host/etc/group:ro \
+  -v /etc/localtime:/etc/localtime:ro \
+  -v /proc:/host/proc:ro \
+  -v /sys:/host/sys:ro \
+  -v /etc/os-release:/host/etc/os-release:ro \
+  -v /var/log:/host/var/log:ro \
+  -v /var/run/docker.sock:/var/run/docker.sock:ro \
+  --restart unless-stopped \
+  --cap-add SYS_PTRACE \
+  --cap-add SYS_ADMIN \
+  --security-opt apparmor=unconfined \
+  -e NETDATA_CLAIM_TOKEN=wZxBq8CQ_J8UZCwbKKvXyewyZwSkAdlnCu0K83K_GEU7iEu6ytoGJQ1JsKqleeqjq80zEt583UO0i2jnnoIZ3yvTAGx0ZzzYIq47xVUI3wp1fLWvQxRSbECnSNOrZhYxjaeaxIw \
+  -e NETDATA_CLAIM_URL=https://app.netdata.cloud \
+  -e NETDATA_CLAIM_ROOMS=6c47f021-fce6-478d-866e-25642c69e623 \
+#-e= NETDATA_HOSTNAME=LNX
+  --restart no \
+  netdata/netdata:edge
+
 
