@@ -81,18 +81,41 @@ sudo apt autoremove -y
 # User Management
 echo "-------- USER MANAGEMENT --------"
 
-# Add user and set password
-sudo useradd -m -s /bin/bash user && echo 'user:password' | sudo chpasswd && \
-  sudo usermod -aG root,ssh,sudo,docker user
+#!/bin/bash
 
-# Add ssh user and set password
-sudo useradd -m -s /bin/bash ssh && echo 'ssh:password' | sudo chpasswd && \
-  sudo usermod -aG root,ssh,sudo,docker ssh
+# Find existing user with UID 1000
+existing_user=$(getent passwd | awk -F: '$3 == 1000 {print $1}')
 
-# Set group ID for user
-sudo groupmod -g 1000 user
-sudo usermod -u 1000 user
-sudo usermod -g 1000 user
+# Find existing group with GID 1000
+existing_group=$(getent group | awk -F: '$3 == 1000 {print $1}')
+
+# If user exists and is NOT 'dietpi' (the current user), change their UID to 1005
+if [ -n "$existing_user" ] && [ "$existing_user" != "dietpi" ]; then
+    sudo usermod -u 1005 "$existing_user"
+fi
+
+# If group exists, change its GID to 1005
+if [ -n "$existing_group" ]; then
+    sudo groupmod -g 1005 "$existing_group"
+fi
+
+# Create 'user' group with GID 1000 if it doesn't exist
+if ! getent group user >/dev/null; then
+  sudo groupadd -g 1000 user
+else
+  # If 'user' group exists, ensure it has GID 1000
+  sudo groupmod -g 1000 user
+fi
+
+# Check if 'user' user exists, if not create it with primary group 'user'
+if ! getent passwd user >/dev/null; then
+  sudo useradd -m -s /bin/bash -g user -u 1000 -G root,ssh,sudo,docker user && echo 'user:password' | sudo chpasswd
+fi
+
+# Check if 'ssh' user exists, if not create it with primary group 'user'
+if ! getent passwd ssh >/dev/null; then
+  sudo useradd -m -s /bin/bash -g user -G root,ssh,sudo,docker ssh && echo 'ssh:password' | sudo chpasswd
+fi
 
 # Add entry to sudoers file to avoid password prompt for users in group 'user'
 sudo sed -i 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%sudo\tALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers
