@@ -13,7 +13,7 @@ sudo apt install -y \
     atop atopacct lnav lnav-extras hstr byobu tmux mosh asciinema \
     yt-dlp wget curl aria2 axel httpie procs psutil goaccess ccze \
     lolcat pv tree lnav bat exa fd-find ripgrep genisoimage \
-    clonezilla p7zip-full mosh qemu-system qemu-utils
+    clonezilla p7zip-full mosh qemu-system qemu-utils 
 
 echo "-------- DEVELOPMENT TOOLS --------"
 sudo apt install -y \
@@ -28,12 +28,12 @@ sudo apt install -y \
 echo "-------- PYTHON DEVELOPMENT --------"
 sudo apt install -y \
     python3 python3-pip python3-venv python3-dev \
-    python3-setuptools python3-wheel pipx
+    python3-setuptools python3-wheel pipx 
 
 echo "-------- SYSTEM MANAGEMENT --------"
 sudo apt install -y \
     open-vm-tools lm-sensors fancontrol \
-    iptables ufw unattended-upgrades apt-listchanges
+    iptables ufw unattended-upgrades apt-listchanges 
 
 echo "-------- STORAGE UTILITIES --------"
 sudo apt install -y \
@@ -43,29 +43,42 @@ sudo apt install -y \
     dosfstools gparted hdparm iotop sysstat lsscsi blktrace \
     btrfs-progs xfsprogs e2fsprogs jfsutils testdisk bleachbit \
     deborphan dislocker cfdisk ddrescue gddrescue partclone \
-    gnome-disk-utility
+    gnome-disk-utility 
 
 echo "-------- FILE SYSTEM UTILITIES --------"
 sudo apt install -y \
     exfat-fuse fuse3 rclone rclone-browser dosfstools \
-    sg3-utils exfatprogs
+    sg3-utils exfatprogs 
 
 echo "-------- NETWORKING TOOLS --------"
 sudo apt install -y \
     arp-scan arptables bridge-utils ethtool iperf iperf3 \
     ipset iptstate mtr nmap openssh-client openssh-server \
-    tcpdump tshark rsync
+    tcpdump tshark rsync 
 
 echo "-------- SECURITY TOOLS --------"
 sudo apt install -y \
     aide apparmor apparmor-utils auditd clamav fail2ban \
-    rkhunter unhide openssl
+    rkhunter unhide openssl 
+
+echo "-------- Additional requested packages --------"
+sudo apt install -y \
+    perl default-jre default-jdk gnupg2 dirmngr preload \
+    zram-config ubuntu-restricted-extras linux-intel-iotg-tools-common \
+    linux-tools-common ifconfig 
 
 echo "-------- Additional requested packages --------"
 sudo apt install -y \
     perl default-jre default-jdk gnupg2 dirmngr preload \
     zram-config ubuntu-restricted-extras linux-intel-iotg-tools-common \
     linux-tools-common ifconfig
+
+echo "-------- ADDITIONAL GUI & TOOLS --------"
+sudo apt install -y \
+    bleachbit rclone rclone-browser gdebi-core synaptic gimp vlc audacity neovim wireshark \
+    chromium firefox-esr thunderbird transmission-gtk deluge qbittorrent libreoffice calibre \
+    gparted handbrake krita inkscape blender darktable shotwell geany codeblocks atom \
+    virtualbox gnome-boxes steam lutris playonlinux
 
 echo "-------- SYSTEM UPDATE AND UPGRADE --------"
 sudo apt clean && \
