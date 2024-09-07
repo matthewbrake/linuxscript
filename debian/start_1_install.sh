@@ -97,13 +97,19 @@ sudo apt-get upgrade -y
 sudo apt-get install curl git
 bash -c "$(curl -fsSL https://get.docker.com)"
 sudo apt install docker-compose
-
 echo "Enable Docker Service"
 sudo systemctl enable docker.service && sudo systemctl enable containerd.service
-
 echo "Add User to group Docker"
 sudo usermod -aG docker user
-
 echo "Add rdp to group Docker"
 sudo usermod -aG docker rdp
 newgrp
+
+echo "-------- INSTALLING XRDP --------"
+wget -qO- github.com/matthewbrake/linuxscript/blob/main/start.sh | sudo bash
+
+echo "-------- INSTALLING OMV + OMV EXTRAS --------"
+wget -qO- https://raw.githubusercontent.com/matthewbrake/linuxscript/main/omv.sh | sudo bash
+
+echo "-------- INSTALLING CASA OS --------"
+wget -qO- https://get.casaos.io | sudo bash
