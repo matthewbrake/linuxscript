@@ -83,38 +83,55 @@ echo "-------- USER MANAGEMENT --------"
 
 #!/bin/bash
 
-# Find existing user with UID 1000
-existing_user=$(getent passwd | awk -F: '$3 == 1000 {print $1}')
+TARGET_UID=1000
+TARGET_GID=1000
 
-# Find existing group with GID 1000
-existing_group=$(getent group | awk -F: '$3 == 1000 {print $1}')
+# Find existing user with target UID
+existing_user=$(getent passwd | awk -F: -v uid="$TARGET_UID" '$3 == uid {print $1}')
 
-# If user exists and is NOT 'dietpi' (the current user), change their UID to 1005
+# Find existing group with target GID
+existing_group=$(getent group | awk -F: -v gid="$TARGET_GID" '$3 == gid {print $1}')
+
+# If user exists and is NOT 'dietpi', change their UID 
 if [ -n "$existing_user" ] && [ "$existing_user" != "dietpi" ]; then
-    sudo usermod -u 1005 "$existing_user"
+    NEW_UID=65534  # Change to a high, unused UID
+    sudo usermod -u "$NEW_UID" "$existing_user"
+    echo "User '$existing_user' already had UID $TARGET_UID. Changed to $NEW_UID."
 fi
 
-# If group exists, change its GID to 1005
-if [ -n "$existing_group" ]; then
-    sudo groupmod -g 1005 "$existing_group"
+# If group exists, and it's not the 'user' group, change its GID
+if [ -n "$existing_group" ] && [ "$existing_group" != "user" ]; then
+    NEW_GID=65534  # Change to a high, unused GID
+    sudo groupmod -g "$NEW_GID" "$existing_group"
+    echo "Group '$existing_group' already had GID $TARGET_GID. Changed to $NEW_GID."
 fi
 
-# Create 'user' group with GID 1000 if it doesn't exist
+# Create or update 'user' group with target GID
 if ! getent group user >/dev/null; then
-  sudo groupadd -g 1000 user
+  sudo groupadd -g "$TARGET_GID" user
 else
-  # If 'user' group exists, ensure it has GID 1000
-  sudo groupmod -g 1000 user
+  sudo groupmod -g "$TARGET_GID" user
 fi
 
-# Check if 'user' user exists, if not create it with primary group 'user'
+# Check if 'user' user exists
 if ! getent passwd user >/dev/null; then
-  sudo useradd -m -s /bin/bash -g user -u 1000 -G root,ssh,sudo,docker user && echo 'user:password' | sudo chpasswd
-fi
+  # 'user' doesn't exist, create it
+  sudo useradd -m -s /bin/bash -g user -u "$TARGET_UID" -G root,sudo,docker user && echo 'user:password' | sudo chpasswd
+else
+  # 'user' exists, ensure it has the correct primary group and UID
 
-# Check if 'ssh' user exists, if not create it with primary group 'user'
-if ! getent passwd ssh >/dev/null; then
-  sudo useradd -m -s /bin/bash -g user -G root,ssh,sudo,docker ssh && echo 'ssh:password' | sudo chpasswd
+  # 1. Change primary group if needed
+  CURRENT_GID=$(id -g user)
+  if [ "$CURRENT_GID" != "$TARGET_GID" ]; then
+    sudo gpasswd -d user "$CURRENT_GID"  # Remove user from current primary group
+    sudo gpasswd -a user user             # Add user to 'user' group (making it the primary group)
+  fi
+
+  # 2. Forcefully change UID if needed
+  CURRENT_UID=$(id -u user)
+  if [ "$CURRENT_UID" != "$TARGET_UID" ]; then
+    sudo usermod -o -u "$TARGET_UID" user
+  fi
 fi
 
 # Add entry to sudoers file to avoid password prompt for users in group 'user'
