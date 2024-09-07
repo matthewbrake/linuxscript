@@ -37,8 +37,8 @@ sudo apt autoclean && \
 sudo apt autoremove -y
 
 echo "-------- USER MANAGEMENT --------"
-sudo useradd -m -s /bin/bash user && echo 'user:password' | sudo chpasswd && sudo usermod -aG root,ssh,sudo,docker ssh
-sudo useradd -m -s /bin/bash ssh && echo 'ssh:password' | sudo chpasswd && sudo usermod -aG root,ssh,sudo,docker ssh
+sudo useradd -m -s /bin/bash user && echo 'user:password' | sudo chpasswd && sudo usermod -aG root,sudo,docker user
+sudo useradd -m -s /bin/bash ssh && echo 'ssh:password' | sudo chpasswd && sudo usermod -aG root,sudo,docker ssh
 sudo groupmod -g 1000 user
 sudo usermod -u 1000 user
 sudo usermod -g 1000 user
