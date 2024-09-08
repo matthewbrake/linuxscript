@@ -53,7 +53,7 @@ sudo apt install -y \
 echo "-------- NETWORKING TOOLS --------"
 sudo apt install -y \
     arp-scan arptables bridge-utils ethtool iperf iperf3 \
-    ipset iptstate mtr nmap openssh-client openssh-server \
+    ipset iptstate mtr nmap openssh-client openssh-server btop \
     tcpdump tshark rsync 
 
 echo "-------- SECURITY TOOLS --------"
