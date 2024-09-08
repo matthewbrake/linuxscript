@@ -78,7 +78,7 @@ sudo apt install -y \
     bleachbit rclone rclone-browser gdebi-core synaptic gimp vlc audacity neovim wireshark \
     chromium firefox-esr thunderbird transmission-gtk deluge qbittorrent libreoffice calibre \
     gparted handbrake krita inkscape blender darktable shotwell geany codeblocks atom \
-    virtualbox gnome-boxes steam lutris playonlinux
+    virtualbox gnome-boxes steam lutris playonlinux snap
 
 echo "-------- SYSTEM UPDATE AND UPGRADE --------"
 sudo apt clean && \
