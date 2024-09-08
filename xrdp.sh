@@ -23,7 +23,7 @@ configure_xsession() {
     # Detect available desktop environments
     if command -v gnome-session >/dev/null; then
         desktop_env="gnome-session"
-    elif command -v cinnamon-session >/dev/null; then
+    elif command -v cinnamon-session-cinnamon >/dev/null; then
         desktop_env="cinnamon-session"
     elif command -v startxfce4 >/dev/null; then
         desktop_env="startxfce4"
