@@ -13,7 +13,8 @@ sudo apt install -y \
     atop atopacct lnav lnav-extras hstr byobu tmux mosh asciinema \
     yt-dlp wget curl aria2 axel httpie procs psutil goaccess ccze \
     lolcat pv tree lnav bat exa fd-find ripgrep genisoimage \
-    clonezilla p7zip-full mosh qemu-system qemu-utils 
+    clonezilla p7zip-full mosh qemu-system qemu-utils xterm open-vm-tools \
+    xauth x11-xserver-utils dbus-x11 libgl1-mesa-dri xserver-xorg-video-qxl
 
 echo "-------- DEVELOPMENT TOOLS --------"
 sudo apt install -y \
