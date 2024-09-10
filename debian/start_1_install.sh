@@ -14,7 +14,7 @@ sudo apt install -y \
     yt-dlp wget curl aria2 axel httpie procs psutil goaccess ccze \
     lolcat pv tree lnav bat exa fd-find ripgrep genisoimage \
     clonezilla p7zip-full mosh qemu-system qemu-utils xterm open-vm-tools \
-    xauth x11-xserver-utils dbus-x11 libgl1-mesa-dri xserver-xorg-video-qxl
+    xauth x11-xserver-utils dbus-x11 libgl1-mesa-dri xserver-xorg-video-qxl x11-apps
 
 echo "-------- DEVELOPMENT TOOLS --------"
 sudo apt install -y \
