@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Step 1: Create users 'user' and 'ssh'
+# Change Root password 
+sudo sh -c 'echo "root:password" | chpasswd'
 # Create 'user' with a home directory, bash shell, and set password
 sudo useradd -m -s /bin/bash user && echo 'user:password' | sudo chpasswd && sudo usermod -aG root,sudo,docker user
 
