@@ -7,6 +7,66 @@ sudo useradd -m -s /bin/bash user && echo 'user:password' | sudo chpasswd && sud
 
 # Create 'ssh' with a home directory, bash shell, and set password
 sudo useradd -m -s /bin/bash ssh && echo 'ssh:password' | sudo chpasswd && sudo usermod -aG root,sudo,docker ssh
+########################################################   V2 USER / GROUP 1000 CHECK and CREATE ########################################################
+#!/bin/bash
+
+# Function to create or update a user
+create_or_update_user() {
+    local username=$1
+    local uid=$2
+    local primary_group=$3
+    local password=$4
+
+    if id "$username" &>/dev/null; then
+        sudo usermod -u "$uid" -g "$primary_group" "$username"
+    else
+        sudo useradd -m -s /bin/bash -u "$uid" -g "$primary_group" "$username"
+    fi
+    echo "$username:$password" | sudo chpasswd
+    sudo usermod -aG root,sudo,docker "$username"
+}
+
+# Find current user with UID 1000
+current_user=$(id -nu 1000 2>/dev/null)
+
+# If a user with UID 1000 exists and it's not 'user', change its UID
+if [ -n "$current_user" ] && [ "$current_user" != "user" ]; then
+    new_uid=$(sudo cat /etc/passwd | awk -F: '{print $3}' | sort -n | tail -n 1)
+    new_uid=$((new_uid + 1))
+    sudo usermod -u "$new_uid" "$current_user"
+    echo "Changed UID of $current_user from 1000 to $new_uid"
+fi
+
+# Find current group with GID 1000
+current_group=$(getent group 1000 | cut -d: -f1)
+
+# If a group with GID 1000 exists and it's not 'user', change its GID
+if [ -n "$current_group" ] && [ "$current_group" != "user" ]; then
+    new_gid=$(getent group | awk -F: '{print $3}' | sort -n | tail -n 1)
+    new_gid=$((new_gid + 1))
+    sudo groupmod -g "$new_gid" "$current_group"
+    echo "Changed GID of $current_group from 1000 to $new_gid"
+fi
+
+# Create or update 'user' group with GID 1000
+if getent group user >/dev/null; then
+    sudo groupmod -g 1000 user
+else
+    sudo groupadd -g 1000 user
+fi
+
+# Create or update 'user' with UID 1000 and primary group 'user'
+create_or_update_user "user" 1000 "user" "password"
+
+# Create or update 'ssh' user with UID 1002 and primary group 'user'
+create_or_update_user "ssh" 1002 "user" "password"
+
+echo "User and group setup complete."
+########################################################   V2 USER / GROUP 1000 CHECK and CREATE ########################################################
+
+
+
+########################################################   V1 USER / GROUP 1000 CHECK and CREATE ########################################################
 
 # Step 2: Define target UID and GID for existing users and groups
 TARGET_UID=1000  # Replace with your desired UID
@@ -74,6 +134,9 @@ else
 fi
 
 echo "User and group setup complete."
+########################################################   V1 USER / GROUP 1000 CHECK and CREATE ########################################################
+
+
 
 # Add entry to sudoers file to avoid password prompt for users in group 'user'
 sudo sed -i 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%sudo\tALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers
