@@ -59,7 +59,7 @@ sudo apt install -y \
 
 echo "-------- SECURITY TOOLS --------"
 sudo apt install -y \
-    aide apparmor apparmor-utils auditd clamav fail2ban \
+    aide apparmor apparmor-utils auditd clamav fail2ban nftables  \
     rkhunter unhide openssl 
 
 echo "-------- Additional requested packages --------"
