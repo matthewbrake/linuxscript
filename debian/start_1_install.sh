@@ -105,6 +105,7 @@ sudo usermod -aG docker user
 echo "Add rdp to group Docker"
 sudo usermod -aG docker rdp
 newgrp
+sudo systemctl status docker
 
 echo "-------- INSTALLING XRDP --------"
 wget -qO- github.com/matthewbrake/linuxscript/blob/main/start.sh | sudo bash
@@ -114,3 +115,15 @@ wget -qO- https://raw.githubusercontent.com/matthewbrake/linuxscript/main/omv.sh
 
 echo "-------- INSTALLING CASA OS --------"
 wget -qO- https://get.casaos.io | sudo bash
+
+# Webadmin E: needs root 
+sudo -i
+curl -o setup-repos.sh https://raw.githubusercontent.com/webmin/webmin/master/setup-repos.sh
+sh setup-repos.sh && \
+apt-get install webmin --install-recommends && \
+sudo systemctl enable webadmin
+sudo systemctl start webadmin
+sudo systemctl status webadmin
+
+
+
