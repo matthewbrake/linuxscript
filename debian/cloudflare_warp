@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Switch to root user
+sudo su
+
+# Step 1: Download and install Cloudflare GPG key
+curl https://pkg.cloudflareclient.com/pubkey.gpg | gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg 
+
+# Step 2: Add Cloudflare repository to sources list
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/cloudflare-client.list 
+
+# Step 3: Update package list and install Cloudflare WARP
+apt-get update && apt-get install cloudflare-warp
+## WARP CONNECTOR ##
+# INSTALL ON ROUTER OR EDGE DEVICE 
+# https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/private-net/warp-connector/
+# Step 4: Set variables for MDM configuration
+ORGANIZATION="cloudpioneers"
+AUTH_CLIENT_ID="your_client_id_access_value"
+AUTH_CLIENT_SECRET="your_client_secret_value"
+WARP_CONNECTOR_TOKEN="eyJhIjoiZjBiMGZiNTIxZTk0ZTkxYTQzY2VmMmNlNjYxYTlhYWEiLCJ0IjoiNmJhZjk3YzYtYWMyOS00NjEwLWEzYjItMjY0MDQyNzAyZGE4IiwicyI6IlpUYzBObUU0TXpBdE5EQXpOUzAwWldRekxUbGhaRGN0TkRBMlpXTmhZV1UxTkRVeCJ9"
+
+# Step 5: Create MDM configuration file
+cat << EOF > /var/lib/cloudflare-warp/mdm.xml
+<dict>
+  <key>organization</key>
+  <string>$ORGANIZATION</string>
+  <key>auth_client_id</key>
+  <string>$AUTH_CLIENT_ID</string>
+  <key>auth_client_secret</key>
+  <string>$AUTH_CLIENT_SECRET</string>
+  <key>warp_connector_token</key>
+  <string>$WARP_CONNECTOR_TOKEN</string>
+</dict>
+EOF
+
+# Step 6: Exclude private routes before enrolling and connecting
+warp-cli add-excluded-route 10.0.0.0/8
+warp-cli add-excluded-route 172.16.0.0/12
+warp-cli add-excluded-route 192.168.0.0/16
+
+# Configure host
+sudo sysctl -w net.ipv4.ip_forward=1
+sudo iptables -t mangle -A FORWARD -i CloudflareWARP -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
+sudo iptables -t mangle -A FORWARD -o CloudflareWARP -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
+# Step 7: Enable IPv4 persistently
+warp-cli enable-always-on
+
+# Step 8: Restart WARP service
+systemctl restart warp-svc.service
+
+# Step 9: Check WARP account status
+warp-cli account
+
+# Step 10: Check WARP connection status
+warp-cli status
