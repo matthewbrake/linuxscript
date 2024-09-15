@@ -4,10 +4,11 @@
 sudo su
 
 # Step 1: Download and install Cloudflare GPG key
-curl https://pkg.cloudflareclient.com/pubkey.gpg | gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg 
+curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
 
-# Step 2: Add Cloudflare repository to sources list
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/cloudflare-client.list 
+echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared jammy main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
+
+sudo apt-get update && sudo apt-get install cloudflaredtee /etc/apt/sources.list.d/cloudflare-client.list 
 
 # Step 3: Update package list and install Cloudflare WARP
 apt-get update && apt-get install cloudflare-warp
