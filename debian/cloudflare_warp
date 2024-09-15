@@ -1,15 +1,42 @@
 #!/bin/bash
 
 # Switch to root user
-sudo su
+sudo -i
 
 # Step 1: Download and install Cloudflare GPG key
 curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
-
-echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared jammy main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
+echo "deb [signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ jammy main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
 
 # Step 3: Update package list and install Cloudflare WARP
 sudo apt-get update && apt-get install cloudflare-warp
+
+
+cat << EOF > /var/lib/cloudflare-warp/mdm.xml
+<dict>
+  <key>organization</key>
+  <string>cloudpioneers</string>
+  <key>30ee99da046b41a6b96e82fbdd69d7cb.access</key>
+  <string>your_client_id_access_value</string>
+  <key>cbbb8a760f4b103a5766864153de08f481199bf5a4194b7a2f4a8f91a2c2771d</key>
+  <string>your_client_secret_value</string>
+  <key>warp_connector_token</key>
+  <string>eyJhIjoiZjBiMGZiNTIxZTk0ZTkxYTQzY2VmMmNlNjYxYTlhYWEiLCJ0IjoiNmJhZjk3YzYtYWMyOS00NjEwLWEzYjItMjY0MDQyNzAyZGE4IiwicyI6IlpUYzBObUU0TXpBdE5EQXpOUzAwWldRekxUbGhaRGN0TkRBMlpXTmhZV1UxTkRVeCJ9</string>
+</dict>
+EOF
+
+
+cat << EOF > /var/lib/cloudflare-warp/mdm.xml
+<dict>
+  <key>organization</key>
+  <string>cloudpioneers</string>
+  <key>auth_client_id</key>
+  <string>30ee99da046b41a6b96e82fbdd69d7cb.access</string>
+  <key>auth_client_secret</key>
+  <string>cbbb8a760f4b103a5766864153de08f481199bf5a4194b7a2f4a8f91a2c2771d</string>
+  <key>warp_connector_token</key>
+  <string>eyJhIjoiZjBiMGZiNTIxZTk0ZTkxYTQzY2VmMmNlNjYxYTlhYWEiLCJ0IjoiNmJhZjk3YzYtYWMyOS00NjEwLWEzYjItMjY0MDQyNzAyZGE4IiwicyI6IlpUYzBObUU0TXpBdE5EQXpOUzAwWldRekxUbGhaRGN0TkRBMlpXTmhZV1UxTkRVeCJ9</string>
+</dict>
+EOF
 
 ## WARP CONNECTOR ##
 # INSTALL ON ROUTER OR EDGE DEVICE 
@@ -43,11 +70,15 @@ warp-cli add-excluded-route 192.168.0.0/16
 sudo sysctl -w net.ipv4.ip_forward=1
 sudo iptables -t mangle -A FORWARD -i CloudflareWARP -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
 sudo iptables -t mangle -A FORWARD -o CloudflareWARP -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
-# Step 7: Enable IPv4 persistently
-warp-cli enable-always-on
+
+# REGISTER and CONNECT
+warp-cli register
+warp-cli connect
+
 
 # Step 8: Restart WARP service
 systemctl restart warp-svc.service
+systemctl enable warp-svc.service
 
 # Step 9: Check WARP account status
 warp-cli account
