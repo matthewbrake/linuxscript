@@ -8,10 +8,9 @@ curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/
 
 echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared jammy main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
 
-sudo apt-get update && sudo apt-get install cloudflaredtee /etc/apt/sources.list.d/cloudflare-client.list 
-
 # Step 3: Update package list and install Cloudflare WARP
-apt-get update && apt-get install cloudflare-warp
+sudo apt-get update && apt-get install cloudflare-warp
+
 ## WARP CONNECTOR ##
 # INSTALL ON ROUTER OR EDGE DEVICE 
 # https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/private-net/warp-connector/
