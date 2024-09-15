@@ -92,6 +92,15 @@ sudo dpkg --configure -a && \
 sudo apt autoclean && \
 sudo apt autoremove -y
 
+
+
+echo "-------- AUTO APT UPDATE --------"
+sudo apt-get update && \
+sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" && \
+sudo DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" && \
+sudo apt-get autoremove -y && \
+sudo apt-get autoclean
+
 echo "-------- INSTALLING DOCKER --------"
 sudo apt-get update
 sudo apt-get upgrade -y
