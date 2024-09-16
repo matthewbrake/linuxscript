@@ -125,6 +125,7 @@ wget -qO- https://raw.githubusercontent.com/matthewbrake/linuxscript/main/omv.sh
 echo "-------- INSTALLING CASA OS --------"
 wget -qO- https://get.casaos.io | sudo bash
 
+echo "-------- INSTALLING WEBADMIN --------"
 # Webadmin E: needs root 
 sudo -i
 curl -o setup-repos.sh https://raw.githubusercontent.com/webmin/webmin/master/setup-repos.sh
