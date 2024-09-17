@@ -61,6 +61,10 @@ create_or_update_user "user" 1000 "user" "password"
 # Create or update 'ssh' user with UID 1002 and primary group 'user'
 create_or_update_user "ssh" 1002 "user" "password"
 
+
+# Add home to bashrc for user
+echo 'cd ~' >> /home/user/.bashrc
+echo 'cd ~' >> /home/ssh/.bashrc
 echo "User and group setup complete."
 ########################################################   V2 USER / GROUP 1000 CHECK and CREATE ########################################################
 
