@@ -65,6 +65,7 @@ create_or_update_user "ssh" 1002 "user" "password"
 # Add home to bashrc for user
 echo 'cd ~' >> /home/user/.bashrc
 echo 'cd ~' >> /home/ssh/.bashrc
+echo 'cd ~' >> /root/.bashrc
 echo "User and group setup complete."
 ########################################################   V2 USER / GROUP 1000 CHECK and CREATE ########################################################
 
