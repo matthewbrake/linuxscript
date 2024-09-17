@@ -11,7 +11,7 @@ sudo apt install -y \
     bc tree wcalc units figlet toilet cmatrix aview elinks lynx w3m \
     links2 links nethogs speedtest-cli mtr filezilla ncdu glances \
     atop atopacct lnav lnav-extras hstr byobu tmux mosh asciinema \
-    yt-dlp wget curl aria2 axel httpie procs psutil goaccess ccze \
+    yt-dlp wget curl aria2 axel httpie procs psutil goaccess ccze sshpass net-tools \
     lolcat pv tree lnav bat exa fd-find ripgrep genisoimage \
     clonezilla p7zip-full mosh qemu-system qemu-utils xterm open-vm-tools id-utils \
     xauth x11-xserver-utils dbus-x11 libgl1-mesa-dri xserver-xorg-video-qxl x11-apps
