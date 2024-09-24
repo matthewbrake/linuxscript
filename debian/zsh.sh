@@ -25,6 +25,25 @@ sudo cp -r ~/.oh-my-zsh /etc/skel/
 sudo chmod -R 755 /etc/skel/
 sudo chown -R root:root /etc/skel/
 
+
+#### FONTS NERD FONT INSTALL
+## V1
+# Download the Nerd Fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
+# Unzip the downloaded file
+unzip Meslo.zip -d Meslo
+# Create the font directory if it doesn't exist
+mkdir -p ~/.local/share/fonts
+# Move the fonts to the local font directory
+mv Meslo/*.ttf ~/.local/share/fonts/
+# Remove the zip file and the unzipped folder
+rm Meslo.zip
+rm -r Meslo
+# Update the font cache
+fc-cache -fv
+echo "Nerd Fonts installed successfully!"
+
+## V1.2 
 wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip \
 && cd ~/.local/share/fonts \
 && unzip JetBrainsMono.zip \
