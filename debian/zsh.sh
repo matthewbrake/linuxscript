@@ -24,3 +24,9 @@ sudo cp ~/.p10k.zsh /etc/skel/
 sudo cp -r ~/.oh-my-zsh /etc/skel/
 sudo chmod -R 755 /etc/skel/
 sudo chown -R root:root /etc/skel/
+
+wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip \
+&& cd ~/.local/share/fonts \
+&& unzip JetBrainsMono.zip \
+&& rm JetBrainsMono.zip \
+&& fc-cache -fv
