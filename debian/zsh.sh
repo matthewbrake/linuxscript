@@ -9,6 +9,7 @@ export ZSH_CUSTOM
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM}"/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions.git "${ZSH_CUSTOM}"/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-history-substring-search "${ZSH_CUSTOM}"/plugins/zsh-history-substring-search
+git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM}"/plugins/zsh-completions
 sudo apt install thefuck autojump -y
 sed -i 's/^plugins=.*/plugins=(git\n extract\n thefuck\n autojump\n jsontools\n colored-man-pages\n zsh-autosuggestions\n zsh-syntax-highlighting\n zsh-history-substring-search\n you-should-use\n nvm\n debian)/g' ~/.zshrc
 # Enable nvm plugin feature to automatically read `.nvmrc` to toggle node version.
