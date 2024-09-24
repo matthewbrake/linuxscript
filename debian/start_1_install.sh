@@ -138,7 +138,7 @@ sudo systemctl status webdmin
 echo "-------- DOCKER CORE CONTAINERS --------"
 # Docker Containers Core
 # Portainer Server
-docker run -d \
+docker create \
   --name portainer_server \
   -p 9000:9000 \
   -p 9443:9443 \
@@ -146,16 +146,18 @@ docker run -d \
   -v portainer_data:/data \
   --restart=always \
   portainer/portainer-ce:latest && \
+
 # Portainer Node
-docker run -d \
+docker create \
   --name portainer_agent \
   -p 9001:9001 \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /var/lib/docker/volumes:/var/lib/docker/volumes \
   --restart=always \
   portainer/agent:2.20.3 && \
-  # File Browser
-docker run -d \
+
+# File Browser
+docker create \
   --name filebrowser \
   -p 8085:80 \
   -v filebrowser_data:/config \
@@ -163,8 +165,9 @@ docker run -d \
   -v /:/srv \
   --restart unless-stopped \
   filebrowser/filebrowser:v2.23.0 && \
-  # Watch Tower
-docker run -d \
+
+# Watch Tower
+docker create \
   --name watchtower \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -e WATCHTOWER_CLEANUP=true \
@@ -173,8 +176,9 @@ docker run -d \
   -e WATCHTOWER_REVIVE_STOPPED=false \
   --restart unless-stopped \
   containrrr/watchtower:latest && \
-  # Cloudflard Tunnel
-docker run -d \
+
+# Cloudflare Tunnel
+docker create \
   --name cloudflare_tunnel \
   -e TUNNEL_EDGE_IP_VERSION=4 \
   -e TUNNEL_LOGLEVEL=debug \
@@ -182,9 +186,10 @@ docker run -d \
   -e TUNNEL_TOKEN=eyJhIjoiZjBiMGZiNTIxZTk0ZTkxYTQzY2VmMmNlNjYxYTlhYWEiLCJ0IjoiYzEyOGQxYzktNjllZi00M2Y1LTgxNDYtMzhjNDA2NzZhYzQ5IiwicyI6Ik0yUTRPREJqTnpFdE5UTmpNaTAwWlRNd0xXSXhaamd0WXpjMVlUTTBaR0kyWVRnMCJ9 \
   -e TUNNEL_TRANSPORT_PROTOCOL=auto \
   --restart no \
-  cloudflare/cloudflared:latest tunnel run && \
+  cloudflare/cloudflared:latest tunnel run \
+&& \
   # Netdata Node
-docker run -d \
+docker create \
   --name=netdata_node \
   --pid=host \
   --network=host \
@@ -209,4 +214,7 @@ docker run -d \
 #-e= NETDATA_HOSTNAME=LNX
   --restart no \
   netdata/netdata:edge
+# Docker Start containers
+docker start portainer_server portainer_agent filebrowser watchtower cloudflare_tunnel netdata_node
+
 
