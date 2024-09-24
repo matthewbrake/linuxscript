@@ -72,14 +72,19 @@ echo "-------- Additional requested packages --------"
 sudo apt install -y \
     perl default-jre default-jdk gnupg2 dirmngr preload \
     zram-config ubuntu-restricted-extras linux-intel-iotg-tools-common \
-    linux-tools-common ifconfig
-
+    linux-tools-common ifconfig \
 echo "-------- ADDITIONAL GUI & TOOLS --------"
 sudo apt install -y \
     bleachbit rclone rclone-browser gdebi-core synaptic gimp vlc audacity neovim wireshark \
     chromium firefox-esr thunderbird transmission-gtk deluge qbittorrent libreoffice calibre \
     gparted handbrake krita inkscape blender darktable shotwell geany codeblocks atom \
     virtualbox gnome-boxes steam lutris playonlinux snap
+
+echo "--------  INSTALL MKUSB ISO CREATOR - DEBIAN --------"
+echo "deb http://ppa.launchpad.net/mkusb/ppa/ubuntu focal main" | sudo tee -a /etc/apt/sources.list
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 54B8C8AC
+sudo apt update
+sudo apt install mkusb-nox usb-pack-efi
 
 echo "-------- SYSTEM UPDATE AND UPGRADE --------"
 sudo apt clean && \
