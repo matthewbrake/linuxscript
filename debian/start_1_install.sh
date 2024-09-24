@@ -90,7 +90,7 @@ sudo apt upgrade -y && \
 sudo apt --fix-broken install && \
 sudo dpkg --configure -a && \
 sudo apt autoclean && \
-sudo apt autoremove -y
+sudo apt --purge autoremove -y
 
 
 
