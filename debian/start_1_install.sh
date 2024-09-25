@@ -14,7 +14,8 @@ sudo apt install -y \
     yt-dlp wget curl aria2 axel httpie procs psutil goaccess ccze sshpass net-tools \
     lolcat pv tree lnav bat exa fd-find ripgrep genisoimage \
     clonezilla p7zip-full mosh qemu-system qemu-utils xterm open-vm-tools id-utils \
-    xauth x11-xserver-utils dbus-x11 libgl1-mesa-dri xserver-xorg-video-qxl x11-apps
+    xauth x11-xserver-utils dbus-x11 libgl1-mesa-dri xserver-xorg-video-qxl x11-apps \
+    extrepo snap flatpak 
 
 # Debian 12
 echo "-------- DEBIAN CORE UTILITIES --------"
