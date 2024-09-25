@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "-------- CORE UTILITIES --------"
+echo "-------- UBUNTU CORE UTILITIES --------"
 sudo apt install -y \
     mc screen jq nmap netcat telnet redis-tools sysdig ethtool \
     iftop ngrep nload socat dnsutils netcat-openbsd strace ltrace \
@@ -15,6 +15,24 @@ sudo apt install -y \
     lolcat pv tree lnav bat exa fd-find ripgrep genisoimage \
     clonezilla p7zip-full mosh qemu-system qemu-utils xterm open-vm-tools id-utils \
     xauth x11-xserver-utils dbus-x11 libgl1-mesa-dri xserver-xorg-video-qxl x11-apps
+
+# Debian 12
+echo "-------- DEBIAN CORE UTILITIES --------"
+sudo apt install -y \
+    mc screen jq nmap netcat-openbsd telnet redis-tools sysdig ethtool \
+    iftop ngrep nload socat dnsutils strace ltrace \
+    tcpdump vnstat dstat iproute2 traceroute iotop usbutils \
+    hwinfo htop glances bmon nmon powertop smem usbtop network-manager \
+    bleachbit moreutils pv sed grep gawk rlwrap less \
+    bat exa fd-find ripgrep sd silversearcher-ag zoxide ranger lsd \
+    bc tree wcalc units figlet toilet cmatrix aview elinks lynx w3m \
+    links2 links nethogs speedtest-cli filezilla ncdu \
+    atop lnav byobu tmux mosh asciinema \
+    yt-dlp wget curl aria2 axel httpie goaccess ccze sshpass net-tools \
+    lolcat genisoimage \
+    clonezilla p7zip-full qemu-system qemu-utils xterm open-vm-tools id-utils \
+    xauth x11-xserver-utils dbus-x11 libgl1-mesa-dri xserver-xorg-video-qxl x11-apps \
+    mtr
 
 echo "-------- DEVELOPMENT TOOLS --------"
 sudo apt install -y \
