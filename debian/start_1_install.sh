@@ -63,7 +63,7 @@ sudo apt install -y \
     dosfstools gparted hdparm iotop sysstat lsscsi blktrace \
     btrfs-progs xfsprogs e2fsprogs jfsutils testdisk bleachbit \
     deborphan dislocker cfdisk ddrescue gddrescue partclone \
-    gnome-disk-utility 
+    gnome-disk-utility sg3-utils scsitools 
 
 echo "-------- FILE SYSTEM UTILITIES --------"
 sudo apt install -y \
