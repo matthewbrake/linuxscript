@@ -4,9 +4,11 @@
 sudo sh -c 'echo "root:password" | chpasswd'
 # Create 'user' with a home directory, bash shell, and set password
 sudo useradd -m -s /bin/bash user && echo 'user:password' | sudo chpasswd && sudo usermod -aG root,sudo,docker user
-
 # Create 'ssh' with a home directory, bash shell, and set password
 sudo useradd -m -s /bin/bash ssh && echo 'ssh:password' | sudo chpasswd && sudo usermod -aG root,sudo,docker ssh
+
+# Sudo group no password when running sudo command
+echo "%sudo ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/nopasswd_sudo && sudo chmod 440 /etc/sudoers.d/nopasswd_sudo
 ########################################################   V2 USER / GROUP 1000 CHECK and CREATE ########################################################
 #!/bin/bash
 
