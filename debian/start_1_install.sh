@@ -63,7 +63,16 @@ sudo apt install -y \
     dosfstools gparted hdparm iotop sysstat lsscsi blktrace \
     btrfs-progs xfsprogs e2fsprogs jfsutils testdisk bleachbit \
     deborphan dislocker cfdisk ddrescue gddrescue partclone \
-    gnome-disk-utility sg3-utils scsitools 
+    gnome-disk-utility sg3-utils scsitools
+# Debian/ubuntu
+sudo apt install -y \
+    gparted gnome-disk-utility baobab ncdu duf df du fdisk gdisk parted lsblk blkid smartmontools hdparm fio iotop \
+    iftop nmon htop atop sysstat ioping bonnie++ ddrescue testdisk photorec extundelete foremost rclone rsync \
+    grsync syncthing duplicity timeshift backintime-qt clonezilla fsarchiver partclone partimage p7zip-full rar \
+    unrar zip unzip ark file-roller fdupes rdfind bleachbit secure-delete wipe shred cryptsetup ecryptfs-utils \
+    encfs veracrypt smbclient cifs-utils samba nfs-common sg3-utils scsitools lsscsi sdparm nvme-cli mdadm lvm2 \
+    thin-provisioning-tools xfsprogs btrfs-progs e2fsprogs dosfstools mtools ntfs-3g exfat-utils udftools \
+    squashfs-tools f2fs-tools zfsutils-linux nbd-client iscsi-initiator-utils multipath-tools open-iscsi targetcli-fb
 
 echo "-------- FILE SYSTEM UTILITIES --------"
 sudo apt install -y \
