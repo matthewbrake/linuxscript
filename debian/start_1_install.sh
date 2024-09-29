@@ -1,5 +1,16 @@
 #!/bin/bash
 
+echo "-------- SYSTEM UPDATE AND UPGRADE --------"
+sudo apt clean && \
+sudo apt update && \
+sudo apt dist-upgrade -y && \
+sudo apt full-upgrade -y && \
+sudo apt upgrade -y && \
+sudo apt --fix-broken install && \
+sudo dpkg --configure -a && \
+sudo apt autoclean && \
+sudo apt --purge autoremove -y
+
 echo "-------- UBUNTU CORE UTILITIES --------"
 sudo apt install -y \
     mc screen jq nmap netcat telnet redis-tools sysdig ethtool \
@@ -7,7 +18,7 @@ sudo apt install -y \
     tcpdump vnstat dstat iproute2 traceroute mtr-tiny iotop usbutils \
     hwinfo htop glances bmon nmon powertop smem usbtop network-manager \
     bleachbit moreutils pv cut paste sed grep awk xargs rlwrap less \
-    bat exa fd-find ripgrep sd silversearcher-ag zoxide ranger lsd \
+    bat exa fd-find ripgrep sd silversearcher-ag zoxide ranger \
     bc tree wcalc units figlet toilet cmatrix aview elinks lynx w3m \
     links2 links nethogs speedtest-cli mtr filezilla ncdu glances \
     atop atopacct lnav lnav-extras hstr byobu tmux mosh asciinema \
@@ -108,11 +119,6 @@ sudo apt install -y \
     gparted handbrake krita inkscape blender darktable shotwell geany codeblocks atom \
     virtualbox gnome-boxes steam lutris playonlinux snap
 
-echo "--------  INSTALL MKUSB ISO CREATOR - DEBIAN --------"
-echo "deb http://ppa.launchpad.net/mkusb/ppa/ubuntu focal main" | sudo tee -a /etc/apt/sources.list
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 54B8C8AC
-sudo apt update
-sudo apt install mkusb-nox usb-pack-efi
 
 echo "-------- SYSTEM UPDATE AND UPGRADE --------"
 sudo apt clean && \
@@ -126,6 +132,17 @@ sudo apt autoclean && \
 sudo apt --purge autoremove -y
 
 
+echo "--------  INSTALL MKUSB ISO CREATOR - DEBIAN --------"
+echo "deb http://ppa.launchpad.net/mkusb/ppa/ubuntu focal main" | sudo tee -a /etc/apt/sources.list
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 54B8C8AC
+sudo apt update
+sudo apt install mkusb-nox usb-pack-efi
+
+# Cubic ISO 
+sudo apt-add-repository universe
+sudo apt-add-repository ppa:cubic-wizard/release
+sudo apt update
+sudo apt install --no-install-recommends cubic
 
 echo "-------- AUTO APT UPDATE --------"
 sudo apt-get update && \
