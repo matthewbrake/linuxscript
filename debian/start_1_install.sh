@@ -26,7 +26,7 @@ sudo apt install -y \
     lolcat pv tree lnav bat exa fd-find ripgrep genisoimage \
     clonezilla p7zip-full mosh qemu-system qemu-utils xterm open-vm-tools id-utils \
     xauth x11-xserver-utils dbus-x11 libgl1-mesa-dri xserver-xorg-video-qxl x11-apps \
-    extrepo snap flatpak debhelper
+    extrepo snap flatpak debhelper gftp
 
 # Debian 12
 echo "-------- DEBIAN CORE UTILITIES --------"
