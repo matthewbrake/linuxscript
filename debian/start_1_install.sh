@@ -163,6 +163,8 @@ echo "Add User to group Docker"
 sudo usermod -aG docker user
 echo "Add rdp to group Docker"
 sudo usermod -aG docker rdp
+echo "Add ssh to group Docker"
+sudo usermod -aG docker ssh
 newgrp
 sudo systemctl status docker
 
@@ -185,6 +187,9 @@ sudo systemctl enable webdmin
 sudo systemctl start webdmin
 sudo systemctl status webdmin
 
+echo "-------- INSTALLING X11 --------"
+apt install cygutils-x11 dbus-x11 emacs-x11 gambas3-gb-desktop-x11 girepository-x11 gnuplot-x11 groff-x11 kwin libqt5x11extras-devel libqt5x11extras5 libx11-devel libx11-doc libx11-xcb-devel libx11-xcb1 libx11_6 \
+pulseaudio-module-x11 pulseaudio-utils qt5-x11extras-doc t1lib-x11 x11perf x11vnc xorg-x11-fonts-cyrillic xorg-x11-fonts-dpi100 xorg-x11-fonts-dpi75 xorg-x11-fonts-ethiopic xorg-x11-fonts-misc xorg-x11-fonts-type1 -y
 echo "-------- DOCKER CORE CONTAINERS --------"
 # Docker Containers Core
 # Portainer Server
