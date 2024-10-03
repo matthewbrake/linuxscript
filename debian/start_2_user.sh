@@ -1,11 +1,34 @@
 #!/bin/bash
 
+echo "---------------------- SET PERMISSIONS TO FOLDERS ---------------------"
+
+# Set variables
+folder="/home"  # Change this to the desired folder
+group_name="users"  # Change this to the desired group name
+# Create the group if it doesn't exist
+groupadd -f $group_name
+# Set group ownership of the folder
+chgrp -R $group_name $folder
+# Set permissions on the folder
+chmod -R 2775 $folder
+# Set root as owner of the folder
+chown -R root:$group_name $folder
+# Set default ACL for new files/folders
+setfacl -Rdm g:$group_name:rwx $folder
+# Apply ACL to existing files/folders
+setfacl -Rm g:$group_name:rwx $folder
+
+echo "---------------------- CHANGE ROOT PASSWORD ---------------------"
 # Change Root password 
 sudo sh -c 'echo "root:password" | chpasswd'
+
+echo "---------------------- CREATE USERS ---------------------"
+
 # Create 'user' with a home directory, bash shell, and set password
 sudo useradd -m -s /bin/bash user && echo 'user:password' | sudo chpasswd && sudo usermod -aG root,sudo,docker user
 # Create 'ssh' with a home directory, bash shell, and set password
 sudo useradd -m -s /bin/bash ssh && echo 'ssh:password' | sudo chpasswd && sudo usermod -aG root,sudo,docker ssh
+sudo chmod -R 2775 /home
 
 # Sudo group no password when running sudo command
 echo "%sudo ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/nopasswd_sudo && sudo chmod 440 /etc/sudoers.d/nopasswd_sudo
