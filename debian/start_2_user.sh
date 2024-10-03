@@ -1,7 +1,9 @@
 #!/bin/bash
 
-echo "---------------------- SET PERMISSIONS TO FOLDERS ---------------------"
 
+
+echo "---------------------- SET PERMISSIONS TO FOLDERS ---------------------"
+su root
 # Set variables
 folder="/home"  # Change this to the desired folder
 group_name="users"  # Change this to the desired group name
@@ -28,10 +30,13 @@ echo "---------------------- CREATE USERS ---------------------"
 sudo useradd -m -s /bin/bash user && echo 'user:password' | sudo chpasswd && sudo usermod -aG root,sudo,docker user
 # Create 'ssh' with a home directory, bash shell, and set password
 sudo useradd -m -s /bin/bash ssh && echo 'ssh:password' | sudo chpasswd && sudo usermod -aG root,sudo,docker ssh
+
+# Set permssion on home folder to open
 sudo chmod -R 2775 /home
 
+
 # Sudo group no password when running sudo command
-echo "%sudo ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/nopasswd_sudo && sudo chmod 440 /etc/sudoers.d/nopasswd_sudo
+echo '%sudo ALL=(ALL:ALL) NOPASSWD: ALL' | sudo EDITOR='tee -a' visudo
 ########################################################   V2 USER / GROUP 1000 CHECK and CREATE ########################################################
 #!/bin/bash
 
@@ -91,6 +96,9 @@ create_or_update_user "ssh" 1002 "user" "password"
 echo 'cd ~' >> /home/user/.bashrc
 echo 'cd ~' >> /home/ssh/.bashrc
 echo 'cd ~' >> /root/.bashrc
+# Bash root
+sudo sed -i '/^PS1=/c\PS1="\u@\h:\w# "' /root/.bashrc
+
 echo "User and group setup complete."
 ########################################################   V2 USER / GROUP 1000 CHECK and CREATE ########################################################
 
