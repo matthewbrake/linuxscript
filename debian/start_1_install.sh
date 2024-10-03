@@ -132,18 +132,6 @@ sudo apt autoclean && \
 sudo apt --purge autoremove -y
 
 
-echo "--------  INSTALL MKUSB ISO CREATOR - DEBIAN --------"
-echo "deb http://ppa.launchpad.net/mkusb/ppa/ubuntu focal main" | sudo tee -a /etc/apt/sources.list
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 54B8C8AC
-sudo apt update
-sudo apt install mkusb-nox usb-pack-efi
-
-# Cubic ISO 
-sudo apt-add-repository universe
-sudo apt-add-repository ppa:cubic-wizard/release
-sudo apt update
-sudo apt install --no-install-recommends cubic
-
 echo "-------- AUTO APT UPDATE --------"
 sudo apt-get update && \
 sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" && \
