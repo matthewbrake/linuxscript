@@ -151,6 +151,10 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y -o Dpkg::Options::="
 sudo apt-get autoremove -y && \
 sudo apt-get autoclean
 
+echo "--------  APT FAST INSTALL DEB --------"
+# APT FAST
+/bin/bash -c "$(curl -sL https://git.io/vokNn)"
+
 echo "-------- INSTALLING DOCKER --------"
 sudo apt-get update
 sudo apt-get upgrade -y
