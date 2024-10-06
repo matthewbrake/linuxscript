@@ -1,7 +1,4 @@
-This may mean that the package is missing, has been obsoleted, or
-is only available from another source
-
-Package zfsutils-linux is not available, but is referred to by another package.
+Package aufs-tools is not available, but is referred to by another package.
 This may mean that the package is missing, has been obsoleted, or
 is only available from another source
 
@@ -9,20 +6,23 @@ Package exfat-utils is not available, but is referred to by another package.
 This may mean that the package is missing, has been obsoleted, or
 is only available from another source
 
-E: Unable to locate package df
-E: Unable to locate package du
-E: Unable to locate package lsblk
-E: Unable to locate package blkid
+Package curlftpfs is not available, but is referred to by another package.
+This may mean that the package is missing, has been obsoleted, or
+is only available from another source
+
+E: Package 'exfat-utils' has no installation candidate
+E: Unable to locate package srm
 E: Unable to locate package ddrescue
 E: Unable to locate package photorec
-E: Package 'rar' has no installation candidate
-E: Package 'unrar' has no installation candidate
-E: Unable to locate package shred
-E: Unable to locate package veracrypt
-E: Package 'exfat-utils' has no installation candidate
-E: Package 'zfsutils-linux' has no installation candidate
-E: Unable to locate package iscsi-initiator-utils
+E: Unable to locate package kdar
+E: Package 'curlftpfs' has no installation candidate
+E: Package 'aufs-tools' has no installation candidate
+E: Unable to locate package overlayfs-tools
+E: Unable to locate package gptfdisk
+E: Unable to locate package blkid
+E: Unable to locate package lsblk
 root@cubic:~# 
+
 
 echo "deb http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware" | sudo tee -a /etc/apt/sources.list
 echo "deb http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware" | sudo tee -a /etc/apt/sources.list
