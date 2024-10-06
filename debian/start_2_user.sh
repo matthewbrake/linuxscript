@@ -34,9 +34,10 @@ sudo useradd -m -s /bin/bash ssh && echo 'ssh:password' | sudo chpasswd && sudo 
 # Set permssion on home folder to open
 sudo chmod -R 2775 /home
 
-
-# Sudo group no password when running sudo command
-echo '%sudo ALL=(ALL:ALL) NOPASSWD: ALL' | sudo EDITOR='tee -a' visudo
+# Sudo no passwor - user
+su root
+touch /etc/sudoers.d/sudoer_user
+echo 'user ALL=(ALL) NOPASSWD: ALL' | sudo tee /etc/sudoers.d/sudoer_user
 ########################################################   V2 USER / GROUP 1000 CHECK and CREATE ########################################################
 #!/bin/bash
 
