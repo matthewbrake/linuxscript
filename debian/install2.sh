@@ -85,20 +85,20 @@ sudo apt install -y \
   gparted gnome-disk-utility lsblk dd fdisk gdisk parted sfdisk cgdisk \
   smartmontools hdparm gddrescue testdisk ddrescue \
   lvm2 thin-provisioning-tools mdadm multipath-tools \
-  clonezilla fsarchiver partclone partimage \
-
-  # Data Recovery and Backup
+  clonezilla fsarchiver partclone partimage
+  # Data Recovery and Backup 
+sudo apt install -y \
   extundelete foremost rclone rsync grsync syncthing duplicity \
-  timeshift backintime-qt photorec \
-
+  timeshift backintime-qt photorec
   # Filesystem and Storage Utilities
+sudo apt install -y \
   ncdu duf pv btrfs-progs xfsprogs e2fsprogs dosfstools mtools \
   ntfs-3g exfatprogs squashfs-tools f2fs-tools nbd-client \
-  open-iscsi targetcli-fb bcache-tools zfsutils-linux zfs-fuse \
+  open-iscsi targetcli-fb bcache-tools zfsutils-linux \
   reiserfsprogs jfsutils hfsplus hfsprogs nilfs-tools xfsdump \
   fatresize fatsort exfat-fuse  \
   smbclient cifs-utils samba nfs-common nfs-kernel-server sshfs \
-  bindfs archivemount fuse \
+  bindfs archivemount \
   util-linux coreutils dmraid dmsetup quota quotatool acl attr \
   inotify-tools incron logrotate mc \
   p7zip-full zip unzip ark file-roller fdupes rdfind \
