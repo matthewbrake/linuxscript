@@ -64,7 +64,7 @@ sudo apt install -y \
 echo "-------- SYSTEM MANAGEMENT --------"
 sudo apt install -y \
     open-vm-tools lm-sensors fancontrol \
-    iptables ufw unattended-upgrades apt-listchanges 
+    iptables ufw unattended-upgrades apt-listchanges aptitude
 
 echo "-------- STORAGE UTILITIES --------"
 sudo apt install -y \
