@@ -38,13 +38,13 @@ sudo apt install -y \
     encfs smbclient cifs-utils samba nfs-common sg3-utils scsitools lsscsi sdparm nvme-cli mdadm lvm2 \
     thin-provisioning-tools xfsprogs btrfs-progs e2fsprogs dosfstools mtools ntfs-3g exfatprogs udftools \
     squashfs-tools f2fs-tools nbd-client open-iscsi targetcli-fb util-linux coreutils \
-    dmraid dmsetup multipath-tools bcache-tools zfsutils-linux zfs-fuse \
+    dmraid dmsetup multipath-tools bcache-tools zfs-fuse \
     reiserfsprogs jfsutils hfsplus hfsprogs nilfs-tools xfsdump \
     fatresize fatsort exfat-fuse \
     nwipe secure-delete wipe \
     sleuthkit autopsy \
     dar dar-static \
-    fuse sshfs bindfs archivemount \
+    sshfs bindfs archivemount \
     parted gpart \
     quota quotatool \
     acl attr eiciel \
