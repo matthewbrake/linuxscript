@@ -28,6 +28,8 @@ echo "deb http://deb.debian.org/debian bookworm main contrib non-free non-free-f
 echo "deb http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware" | sudo tee -a /etc/apt/sources.list
 echo "deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware" | sudo tee -a /etc/apt/sources.list
 
+sudo apt update
+
 sudo apt install -y \
     gparted gnome-disk-utility baobab ncdu duf fdisk gdisk parted smartmontools hdparm fio iotop \
     iftop nmon htop atop sysstat ioping bonnie++ gddrescue testdisk extundelete foremost rclone rsync \
@@ -38,19 +40,18 @@ sudo apt install -y \
     squashfs-tools f2fs-tools nbd-client open-iscsi targetcli-fb util-linux coreutils \
     dmraid dmsetup multipath-tools bcache-tools zfsutils-linux zfs-fuse \
     reiserfsprogs jfsutils hfsplus hfsprogs nilfs-tools xfsdump \
-    fatresize fatsort exfat-fuse exfat-utils \
-    nwipe secure-delete srm wipe \
-    ddrescue photorec sleuthkit autopsy \
-    dar dar-static kdar \
-    fuse sshfs curlftpfs bindfs archivemount \
-    aufs-tools overlayfs-tools \
-    parted gpart gptfdisk \
+    fatresize fatsort exfat-fuse \
+    nwipe secure-delete wipe \
+    sleuthkit autopsy \
+    dar dar-static \
+    fuse sshfs bindfs archivemount \
+    parted gpart \
     quota quotatool \
     acl attr eiciel \
     inotify-tools incron \
     logrotate \
     tmux screen \
-    iotop blktrace blkid lsblk \
+    iotop blktrace \
     hwinfo lshw inxi \
     stress stress-ng fio \
     ethtool
