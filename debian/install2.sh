@@ -1,29 +1,16 @@
-Package aufs-tools is not available, but is referred to by another package.
-This may mean that the package is missing, has been obsoleted, or
-is only available from another source
+sudo bash -c 'cat <<EOF > /etc/apt/sources.list
+deb http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware
 
-Package exfat-utils is not available, but is referred to by another package.
-This may mean that the package is missing, has been obsoleted, or
-is only available from another source
+deb http://security.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
+deb-src http://security.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
 
-Package curlftpfs is not available, but is referred to by another package.
-This may mean that the package is missing, has been obsoleted, or
-is only available from another source
+deb http://deb.debian.org/debian/ bookworm-updates main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian/ bookworm-updates main contrib non-free non-free-firmware
 
-E: Package 'exfat-utils' has no installation candidate
-E: Unable to locate package srm
-E: Unable to locate package ddrescue
-E: Unable to locate package photorec
-E: Unable to locate package kdar
-E: Package 'curlftpfs' has no installation candidate
-E: Package 'aufs-tools' has no installation candidate
-E: Unable to locate package overlayfs-tools
-E: Unable to locate package gptfdisk
-E: Unable to locate package blkid
-E: Unable to locate package lsblk
-root@cubic:~# 
-
-
+deb http://deb.debian.org/debian/ bookworm-backports main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian/ bookworm-backports main contrib non-free non-free-firmware
+EOF'
 
 sudo apt install -y \
     gparted gnome-disk-utility baobab ncdu duf fdisk gdisk parted \
