@@ -24,9 +24,28 @@ E: Unable to locate package lsblk
 root@cubic:~# 
 
 
-echo "deb http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware" | sudo tee -a /etc/apt/sources.list
-echo "deb http://deb.debian.org/debian-security/ bookworm-security main contrib non-free non-free-firmware" | sudo tee -a /etc/apt/sources.list
-echo "deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware" | sudo tee -a /etc/apt/sources.list
+
+sudo apt install -y \
+    gparted gnome-disk-utility baobab ncdu duf fdisk gdisk parted \
+    smartmontools hdparm fio iotop iftop nmon htop atop sysstat \
+    gddrescue testdisk extundelete foremost rclone rsync grsync \
+    clonezilla fsarchiver partclone partimage p7zip-full zip unzip \
+    btrfs-progs xfsprogs e2fsprogs dosfstools mtools ntfs-3g exfatprogs \
+    squashfs-tools f2fs-tools nbd-client open-iscsi targetcli-fb \
+    lvm2 thin-provisioning-tools mdadm multipath-tools bcache-tools \
+    zfsutils-linux zfs-fuse reiserfsprogs jfsutils hfsplus hfsprogs nilfs-tools \
+    xfsdump fatresize fatsort exfat-fuse
+
+  smbclient cifs-utils samba nfs-common nfs-kernel-server sshfs \
+    bindfs archivemount fuse
+
+    sudo apt install -y \
+    util-linux coreutils dmraid dmsetup quota quotatool acl attr eiciel \
+    inotify-tools incron logrotate mc (Midnight Commander) \
+    stress stress-ng ethtool hwinfo lshw inxi \
+    bleachbit secure-delete wipe cryptsetup ecryptfs-utils encfs \
+    dar dar-static sleuthkit autopsy \
+    tmux screen iotop blktrace
 
 sudo apt update
 
@@ -55,3 +74,35 @@ sudo apt install -y \
     hwinfo lshw inxi \
     stress stress-ng fio \
     ethtool
+
+
+sudo apt update
+
+sudo apt update
+
+sudo apt install -y \
+  # Disk and Partition Management
+  gparted gnome-disk-utility lsblk dd fdisk gdisk parted sfdisk cgdisk \
+  smartmontools hdparm gddrescue testdisk ddrescue \
+  lvm2 thin-provisioning-tools mdadm multipath-tools \
+  clonezilla fsarchiver partclone partimage \
+
+  # Data Recovery and Backup
+  extundelete foremost rclone rsync grsync syncthing duplicity \
+  timeshift backintime-qt photorec \
+
+  # Filesystem and Storage Utilities
+  ncdu duf pv btrfs-progs xfsprogs e2fsprogs dosfstools mtools \
+  ntfs-3g exfatprogs squashfs-tools f2fs-tools nbd-client \
+  open-iscsi targetcli-fb bcache-tools zfsutils-linux zfs-fuse \
+  reiserfsprogs jfsutils hfsplus hfsprogs nilfs-tools xfsdump \
+  fatresize fatsort exfat-fuse  \
+  smbclient cifs-utils samba nfs-common nfs-kernel-server sshfs \
+  bindfs archivemount fuse \
+  util-linux coreutils dmraid dmsetup quota quotatool acl attr \
+  inotify-tools incron logrotate mc \
+  p7zip-full zip unzip ark file-roller fdupes rdfind \
+  bleachbit secure-delete wipe cryptsetup ecryptfs-utils encfs \
+  dar dar-static sleuthkit autopsy \
+  tmux screen iotop blktrace \
+  stress stress-ng ethtool hwinfo lshw inxi fio
