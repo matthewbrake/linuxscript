@@ -183,47 +183,48 @@ sudo sed -i 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%sudo\tALL=(ALL:ALL) NOPASSWD:AL
 # visudo -f /etc/sudoers -c 's/# %wheel ALL=(ALL) NOPASSWD: ALL/%user ALL=(ALL) NOPASSWD: ALL/'
 
 # SSH Key Addition
-echo "-------- SSH KEY ADD --------"
-
+echo "------------------------------------------------------------------------- SSH KEY ADD --------------------------------------------------------------------------------------------------------"
 # Define SSH keys
 SSH_KEY="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCyUFXWCropvytbMVP6JNpm2zsdz5MOMYe3MaMNXbxYwdGemjcCeoQlnnhe3CbmDrKNZnkc/hPs9mwUsS6FijSdnXaC4+FELpPXMkRXw9b3KCAJc7xcOIJACTEp5gVdbHzBefWx8+sVqs7iRjwd8n5K9laPOjr4lyj7YC5tY4JzIHzjQBtrx2ZcvTFyzzy3SdapVm1+drBYUweh4BY6ANrDuQAJeYzUPYfWB6vPtSzE3hRbbkJ71SPJFB1aBNGbJbdM65f6VJ/BbMaOZKjE7zPk4VuHabhVAE7kKp6HUwWoVIwxCzUa3goT8gFvWlZXsyn3IM72Y5nyXoDMYu40+v6d rsa-key-20240325"
 ROOT_SSH_KEY="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCyUFXWCropvytbMVP6JNpm2zsdz5MOMYe3MaMNXbxYwdGemjcCeoQlnnhe3CbmDrKNZnkc/hPs9mwUsS6FijSdnXaC4+FELpPXMkRXw9b3KCAJc7xcOIJACTEp5gVdbHzBefWx8+sVqs7iRjwd8n5K9laPOjr4lyj7YC5tY4JzIHzjQBtrx2ZcvTFyzzy3SdapVm1+drBYUweh4BY6ANrDuQAJeYzUPYfWB6vPtSzE3hRbbkJ71SPJFB1aBNGbJbdM65f6VJ/BbMaOZKjE7zPk4VuHabhVAE7kKp6HUwWoVIwxCzUa3goT8gFvWlZXsyn3IM72Y5nyXoDMYu40+v6d rsa-key-20240325"
-
-# Root
-su root
-# Add SSH keys to authorized_keys files
-mkdir -p /home/user/.ssh
-echo "$SSH_KEY" > /home/user/.ssh/authorized_keys
-sudo chown -R user:user /home/user/.ssh
-sudo chmod 700 /home/user/.ssh
-sudo chmod 600 /home/user/.ssh/authorized_keys
-
-mkdir -p /home/ssh/.ssh
-echo "$SSH_KEY" > /home/ssh/.ssh/authorized_keys
-sudo chown -R ssh:ssh /home/ssh/.ssh
-sudo chmod 700 /home/ssh/.ssh
-sudo chmod 600 /home/ssh/.ssh/authorized_keys
-
-# Add root's SSH key to authorized_keys file (if needed)
-mkdir -p /root/.ssh
-echo "$SSH_KEY" > /root/.ssh/authorized_keys
-sudo chown -R root:root /root/.ssh
-sudo chmod 700 /root/.ssh
-sudo chmod 600 /root/.ssh/authorized_keys
-
+# Function to set up SSH keys for a user
+setup_ssh_key() {
+    local USERNAME=$1
+    local KEY=$2
+    # Create .ssh directory if it doesn't exist
+    mkdir -p /home/$USERNAME/.ssh
+    # Set permissions for .ssh directory
+    chmod 700 /home/$USERNAME/.ssh
+    # Add SSH key to authorized_keys file
+    echo "$KEY" >> /home/$USERNAME/.ssh/authorized_keys
+    # Set permissions for authorized_keys file
+    chmod 600 /home/$USERNAME/.ssh/authorized_keys
+    # Ensure correct ownership of .ssh directory and files
+    chown -R $USERNAME:$USERNAME /home/$USERNAME/.ssh
+}
+# Set up SSH key for 'user'
+setup_ssh_key "user" "$SSH_KEY"
+# Set up SSH key for 'ssh'
+setup_ssh_key "ssh" "$SSH_KEY"
+# Set up SSH key for root (if needed)
+setup_ssh_key "root" "$ROOT_SSH_KEY"
+echo "SSH keys have been set up successfully."
 # Restart SSH service
 sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 sudo systemctl restart sshd
 # Restart SSH service (if necessary)
 sudo systemctl restart ssh
+echo "------------------------------------------------------------------------- SSH KEY ADD --------------------------------------------------------------------------------------------------------"
 
-echo "-------- HOSTNAME --------"
+
+
+echo "-------------------------------------------------------------------------------- HOSTNAME -----------------------------------------------------------------------------------------------"
 newhostname="PI-SERVER"; echo $newhostname > /etc/hostname && echo "127.0.0.1 $newhostname localhost" > /etc/hosts && echo "::1  localhost ip6-localhost ip6-loopback" >> /etc/hosts
 newhostname="PI-SERVER"; ip=$(hostname -I | awk '{print $1}'); echo $newhostname > /etc/hostname && echo "127.0.0.1 $newhostname localhost" > /etc/hosts && echo "::1  localhost ip6-localhost ip6-loopback" >> /etc/hosts && echo "$ip $newhostname" >> /etc/hosts
 
 
 
-echo "-------- DIRECTORTIES --------"
+echo "------------------------------------------------------------------------------- DIRECTORTIES -------------------------------------------------------------------"
 sudo chown -R root:users /mnt && sudo chmod -R 0777 /mnt
 # Directories
 newdir="/mnt/fs-omv" && sudo mkdir -p "$newdir" && sudo chown -R 1000:1000 "$newdir" && sudo chmod -R 755 "$newdir" && ls -la "$newdir"
