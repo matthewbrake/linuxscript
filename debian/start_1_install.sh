@@ -54,7 +54,7 @@ sudo apt install -y \
     tcpdump iptables traceroute uuid-runtime zip unzip tar gzip \
     bzip2 xz-utils file gnupg2 gawk gettext locales strace lsof \
     sysstat time watch whois zstd parallel multitail vnstat \
-    make gcc g++ gdb 
+    make gcc g++ gdb linux-headers-$(uname -r)
 
 echo "-------- PYTHON DEVELOPMENT --------"
 sudo apt install -y \
