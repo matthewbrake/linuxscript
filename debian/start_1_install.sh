@@ -160,6 +160,11 @@ sudo usermod -aG docker ssh
 newgrp
 sudo systemctl status docker
 
+echo "-------- INSTALLING DOCKER COMPOSE --------"
+LATEST=$(curl -Ls -w %{url_effective} -o /dev/null https://github.com/docker/compose/releases/latest) && LATEST=${LATEST##*/} && \
+curl -L https://github.com/docker/compose/releases/download/$LATEST/docker-compose-$(uname -s)-$(uname -m) > /usr/local/bin/docker-compose \
+chmod +x /usr/local/bin/docker-compose
+
 echo "-------- INSTALLING XRDP --------"
 wget -qO- github.com/matthewbrake/linuxscript/blob/main/start.sh | sudo bash
 
