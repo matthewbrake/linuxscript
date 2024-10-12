@@ -9,7 +9,9 @@ sudo apt upgrade -y && \
 sudo apt --fix-broken install && \
 sudo dpkg --configure -a && \
 sudo apt autoclean && \
-sudo apt --purge autoremove -y
+sudo apt --purge autoremove -y && \
+# sudo apt install linux-headers-$(uname -r) && \
+# sudo update-grub
 
 echo "-------- UBUNTU CORE UTILITIES --------"
 sudo apt install -y \
