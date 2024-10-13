@@ -1,0 +1,97 @@
+Here's a comprehensive guide to set up an Ubuntu MAAS server, including installation, configuration, and basic usage, presented in a script-style format with comments:
+
+```bash
+#!/bin/bash
+
+# Step 1: Update and upgrade the system
+sudo apt update && sudo apt upgrade -y
+
+# Step 2: Install required dependencies
+sudo apt install -y postgresql
+
+# Step 3: Add MAAS PPA and install MAAS
+sudo apt-add-repository ppa:maas/3.2
+sudo apt update
+sudo apt install -y maas
+
+# Step 4: Create PostgreSQL database for MAAS
+sudo -u postgres psql -c "CREATE DATABASE maas;"
+sudo -u postgres psql -c "CREATE USER maas WITH ENCRYPTED PASSWORD 'your_secure_password';"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE maas TO maas;"
+
+# Step 5: Initialize MAAS region and rack controller
+sudo maas init region+rack --database-uri "postgres://maas:your_secure_password@localhost/maas"
+
+# Step 6: Create MAAS admin user
+sudo maas createadmin --username admin --email admin@example.com --password your_admin_password
+
+# Step 7: Generate API key for the admin user
+API_KEY=$(sudo maas apikey --username admin)
+echo "Your API key is: $API_KEY"
+
+# Step 8: Configure MAAS settings (example: DNS forwarder)
+maas login admin http://localhost:5240/MAAS $API_KEY
+maas admin maas set-config name=upstream_dns value=8.8.8.8
+
+# Step 9: Import boot images
+maas admin boot-resources import
+
+# Step 10: Enable DHCP on a subnet (example: assuming 192.168.1.0/24 network)
+FABRIC_ID=$(maas admin subnet read 192.168.1.0/24 | jq -r '.vlan.fabric_id')
+VLAN_ID=$(maas admin subnet read 192.168.1.0/24 | jq -r '.vlan.id')
+maas admin ipranges create type=dynamic start_ip=192.168.1.200 end_ip=192.168.1.250
+maas admin vlan update $FABRIC_ID $VLAN_ID dhcp_on=True primary_rack=$(hostname)
+
+# Step 11: Add SSH keys for admin user (replace with your public key)
+maas admin sshkeys create key="$(cat ~/.ssh/id_rsa.pub)"
+
+# Step 12: Create a default pool for machines
+maas admin resource-pools create name=default description="Default pool for MAAS machines"
+
+# Step 13: Set default storage layout for machines
+maas admin maas set-config name=default_storage_layout value=lvm
+
+# Step 14: Configure power types (example for IPMI)
+# Note: You'll need to add each machine individually with its BMC details
+# maas admin machines create hostname=node1 architecture=amd64/generic mac_addresses=00:11:22:33:44:55 power_type=ipmi power_parameters_power_address=192.168.1.100 power_parameters_power_user=admin power_parameters_power_pass=password
+
+echo "MAAS setup complete. Access the web interface at http://localhost:5240/MAAS"
+echo "Use the username 'admin' and the password you set during creation to log in."
+```
+
+# Comments for each step:
+
+1. Update the system to ensure all packages are current.
+2. Install PostgreSQL, which is required for MAAS database.
+3. Add the MAAS PPA and install MAAS from it.
+4. Create a PostgreSQL database and user for MAAS.
+5. Initialize MAAS as both a region and rack controller.
+6. Create the MAAS admin user.
+7. Generate an API key for the admin user, which will be used for CLI operations.
+8. Configure MAAS settings, such as the DNS forwarder.
+9. Import the necessary boot images for provisioning machines.
+10. Enable DHCP on a subnet. Adjust the IP range and subnet as needed.
+11. Add SSH keys for the admin user to allow SSH access to provisioned machines.
+12. Create a default resource pool for machines.
+13. Set the default storage layout for provisioned machines.
+14. Example of how to add a machine with IPMI power control (commented out).
+
+After running this script, you can access the MAAS web interface at http://localhost:5240/MAAS. Log in with the admin username and password you set.
+
+To use MAAS:
+1. Add machines through the web interface or CLI.
+2. Commission machines to gather hardware information.
+3. Deploy machines with your chosen operating system.
+4. Manage and monitor your machines through the MAAS interface.
+
+Remember to adjust network settings, IP ranges, and machine details according to your specific environment.
+
+Citations:
+[1] https://maas.io/docs/how-to-install-maas
+[2] https://www.logicweb.com/kb/random-stuff/how-to-install-maas-on-ubuntu/
+[3] https://maas.io/docs/tutorial-bootstrapping-maas
+[4] https://pages.ubuntu.com/install-maas.html
+[5] https://discourse.maas.io/t/maas-networking-for-dummies-for-3-1-new-setup/5914
+[6] https://www.youtube.com/watch?v=JOwGP0iZk8A
+[7] https://www.youtube.com/watch?v=rbkB25kaBmU
+[8] https://www.youtube.com/watch?v=KpUuTeqWbes
