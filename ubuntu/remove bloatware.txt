@@ -1,0 +1,166 @@
+#!/bin/bash
+
+# Update package lists
+sudo apt update
+
+# Remove unnecessary packages (replace with your list)
+sudo apt remove -y \
+  account-plugin-facebook \
+  account-plugin-flickr \
+  account-plugin-jabber \
+  account-plugin-salut \
+  account-plugin-twitter \
+  account-plugin-windows-live \
+  account-plugin-yahoo \
+  aisleriot \
+  brltty \
+  duplicity \
+  empathy \
+  empathy-common \
+  example-content \
+  gnome-accessibility-themes \
+  gnome-contacts \
+  gnome-mahjongg \
+  gnome-mines \
+  gnome-orca \
+  gnome-screensaver \
+  gnome-sudoku \
+  gnome-video-effects \
+  gnomine \
+  landscape-common \
+  libreoffice-avmedia-backend-gstreamer \
+  libreoffice-base-core \
+  libreoffice-calc \
+  libreoffice-common \
+  libreoffice-core \
+  libreoffice-draw \
+  libreoffice-gnome \
+  libreoffice-gtk \
+  libreoffice-impress \
+  libreoffice-math \
+  libreoffice-ogltrans \
+  libreoffice-pdfimport \
+  libreoffice-style-galaxy \
+  libreoffice-style-human \
+  libreoffice-writer \
+  libsane \
+  libsane-common \
+  python3-uno \
+  rhythmbox \
+  rhythmbox-plugins \
+  rhythmbox-plugin-zeitgeist \
+  sane-utils \
+  shotwell \
+  shotwell-common \
+  telepathy-gabble \
+  telepathy-haze \
+  telepathy-idle \
+  telepathy-indicator \
+  telepathy-logger \
+  telepathy-mission-control-5 \
+  telepathy-salut \
+  totem \
+  totem-common \
+  totem-plugins \
+  printer-driver-brlaser \
+  printer-driver-foo2zjs \
+  printer-driver-foo2zjs-common \
+  printer-driver-m2300w \
+  printer-driver-ptouch \
+  baobab \
+  ca-certificates-java \
+  celluloid \
+  cheese \
+  cheese-common \
+  default-jre \
+  default-jre-headless \
+  drawing \
+  flatpak \
+  gnome-calculator \
+  gnome-calendar \
+  gnome-disk-utility \
+  gnome-screenshot \
+  gnome-system-monitor \
+  hexchat \
+  hexchat-common \
+  hypnotix \
+  liblibreoffice-java \
+  libreoffice-base \
+  libreoffice-base-core \
+  libreoffice-base-drivers \
+  libreoffice-calc \
+  libreoffice-common \
+  libreoffice-core \
+  libreoffice-draw \
+  libreoffice-gnome \
+  libreoffice-gtk3 \
+  libreoffice-help-common \
+  libreoffice-help-de \
+  libreoffice-help-en-gb \
+  libreoffice-help-en-us \
+  libreoffice-help-es \
+  libreoffice-help-fr \
+  libreoffice-help-it \
+  libreoffice-help-pt \
+  libreoffice-help-pt-br \
+  libreoffice-help-ru \
+  libreoffice-help-zh-cn \
+  libreoffice-help-zh-tw \
+  libreoffice-impress \
+  libreoffice-java-common \
+  libreoffice-l10n-de \
+  libreoffice-l10n-en-gb \
+  libreoffice-l10n-en-za \
+  libreoffice-l10n-es \
+  libreoffice-l10n-fr \
+  libreoffice-l10n-it \
+  libreoffice-l10n-pt \
+  libreoffice-l10n-pt-br \
+  libreoffice-l10n-ru \
+  libreoffice-l10n-zh-cn \
+  libreoffice-l10n-zh-tw \
+  libreoffice-math \
+  libreoffice-sdbc-hsqldb \
+  libreoffice-style-colibre \
+  libreoffice-writer \
+  onboard \
+  onboard-common \
+  openjdk-11-jre \
+  openjdk-11-jre-headless \
+  orca \
+  pix \
+  pix-data \
+  pix-dbg \
+  python3-uno \
+  redshift \
+  redshift-gtk \
+  rhythmbox \
+  rhythmbox-data \
+  rhythmbox-plugins \
+  rhythmbox-plugin-tray-icon \
+  simple-scan \
+  sticky \
+  thingy \
+  thunderbird \
+  thunderbird-gnome-support \
+  timeshift \
+  transmission-common \
+  transmission-gtk \
+  warpinator \
+  webapp-manager \
+  youtube-dl
+
+# Remove orphaned packages (those no longer needed by any other package)
+sudo apt autoremove -y
+
+# Clean up package cache to free up disk space
+sudo apt clean
+
+# Optionally, remove unused locales to save space
+# (Be careful with this; only remove locales you are SURE you won't need)
+# sudo locale-gen --purge en_US.UTF-8  # Keep only en_US.UTF-8, for example
+
+# You can add more commands here to further customize your minimal system,
+# such as removing documentation or specific configuration files.
+
+echo "Bloatware removal and cleanup complete!"
