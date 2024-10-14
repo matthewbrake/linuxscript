@@ -164,3 +164,82 @@ sudo apt clean
 # such as removing documentation or specific configuration files.
 
 echo "Bloatware removal and cleanup complete!"
+#!/bin/bash
+
+# Update package lists
+sudo apt update
+
+# Remove large desktop applications and games
+sudo apt remove -y \
+  hexchat hexchat-common \
+  hypnotix \
+  libreoffice-* \
+  thunderbird thunderbird-gnome-support \
+  transmission-common transmission-gtk \
+  aisleriot \
+  gnome-mahjongg \
+  gnome-mines \
+  gnome-sudoku
+
+# Remove unnecessary utilities and media applications
+sudo apt remove -y \
+  baobab \
+  celluloid \
+  cheese cheese-common \
+  drawing \
+  gnome-calculator \
+  gnome-calendar \
+  gnome-disk-utility \
+  gnome-screenshot \
+  gnome-system-monitor \
+  onboard onboard-common \
+  pix pix-data pix-dbg \
+  redshift redshift-gtk \
+  rhythmbox rhythmbox-data rhythmbox-plugins rhythmbox-plugin-tray-icon \
+  simple-scan \
+  sticky \
+  thingy \
+  totem totem-common totem-plugins \
+  warpinator
+
+# Remove language packs (keep US English)
+sudo apt remove -y $(check-language-support -l en_US | grep '^.._..$' | grep -v '^en_' | xargs)
+sudo locale-gen en_US.UTF-8
+
+# Remove other unnecessary packages
+sudo apt remove -y \
+  account-plugin-facebook account-plugin-flickr account-plugin-jabber \
+  account-plugin-salut account-plugin-twitter account-plugin-windows-live \
+  account-plugin-yahoo \
+  brltty \
+  duplicity \
+  empathy empathy-common \
+  example-content \
+  flatpak \
+  gnome-accessibility-themes \
+  gnome-contacts \
+  gnome-screensaver \
+  gnome-video-effects \
+  gnomine \
+  landscape-common \
+  libsane libsane-common sane-utils \
+  python3-uno \
+  shotwell shotwell-common \
+  telepathy-* \
+  printer-driver-* \
+  ca-certificates-java \
+  default-jre default-jre-headless \
+  liblibreoffice-java \
+  openjdk-11-jre openjdk-11-jre-headless \
+  orca \
+  timeshift \
+  webapp-manager \
+  youtube-dl
+
+# Remove orphaned packages
+sudo apt autoremove -y
+
+# Clean up package cache
+sudo apt clean
+
+echo "Unnecessary software removed and cleanup complete!"
