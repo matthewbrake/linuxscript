@@ -5,6 +5,19 @@ sudo apt update
 
 sudo apt remove --purge hexchat thunderbird transmission-gtk pix rhythmbox xplayer xviewer simple-scan gnote tomboy hypnotix drawing warpinator
 # Remove unnecessary packages (replace with your list)
+sudo apt purge \
+  cinnamon* \
+  gnome-* \
+  mate-* \
+  xfce4* \
+  light-locker* \
+  lightdm* \
+  papirus-icon-theme \
+  yaru-theme-icon \
+  breeze* \
+  greybird-gtk-theme \
+  *-icon-theme \
+  fonts-*
 
 sudo apt remove -y \
   account-plugin-facebook \
