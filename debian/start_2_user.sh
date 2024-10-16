@@ -225,7 +225,7 @@ newhostname="PI-SERVER"; ip=$(hostname -I | awk '{print $1}'); echo $newhostname
 
 
 echo "------------------------------------------------------------------------------- DIRECTORTIES -------------------------------------------------------------------"
-sudo chown -R root:users /mnt && sudo chmod -R 0777 /mnt
+sudo chown -R root:user /mnt && sudo chmod -R 0777 /mnt
 # Directories
 newdir="/mnt/fs-omv" && sudo mkdir -p "$newdir" && sudo chown -R 1000:1000 "$newdir" && sudo chmod -R 755 "$newdir" && ls -la "$newdir"
 newdir="/mnt/zima" && sudo mkdir -p "$newdir" && sudo chown -R 1000:1000 "$newdir" && sudo chmod -R 755 "$newdir" && ls -la "$newdir"
