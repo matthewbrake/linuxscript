@@ -3,7 +3,9 @@
 # Update package lists
 sudo apt update
 
+sudo apt remove --purge hexchat thunderbird transmission-gtk pix rhythmbox xplayer xviewer simple-scan gnote tomboy hypnotix drawing warpinator
 # Remove unnecessary packages (replace with your list)
+
 sudo apt remove -y \
   account-plugin-facebook \
   account-plugin-flickr \
