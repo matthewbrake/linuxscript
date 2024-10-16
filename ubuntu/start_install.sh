@@ -29,3 +29,6 @@ wget https://github.com/nextcloud-releases/desktop/releases/download/v3.14.1/Nex
 
 # ONLY OFICE
 sudo apt-get update && sudo apt-get install -y curl && curl -fsSL https://download.onlyoffice.com/install/desktop/linux/onlyoffice-desktopeditors.gpg | sudo gpg --dearmor -o /usr/share/keyrings/onlyoffice-desktopeditors.gpg && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/onlyoffice-desktopeditors.gpg] https://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice-desktopeditors.list && sudo apt-get update && sudo apt-get install -y onlyoffice-desktopeditors
+
+# WAZUH
+WAZUH_MANAGER="<MANAGER_IP>" curl -s https://packages.wazuh.com/4.x/apt/key/GPG-KEY-WAZUH | apt-key add - && echo "deb https://packages.wazuh.com/4.x/apt/ stable main" | tee /etc/apt/sources.list.d/wazuh.list && apt-get update && apt-get install wazuh-agent -y
