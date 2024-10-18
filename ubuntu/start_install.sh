@@ -1,6 +1,18 @@
-# FLATPACK
+# Opimizations
+sudo apt update && sudo apt install preload zram-config irqbalance fstrim mesa-utils vulkan-tools ffmpeg libavcodec-extra gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly libdvd-pkg tlp powertop hddtemp lm-sensors
 
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrep
+# SNAP STORE 
+sudo apt update
+sudo apt install snapd
+sudo snap install snapd
+
+# TAILSCALE 
+curl -fsSL https://tailscale.com/install.sh | sh
+
+# FLATPACK
+sudo add-apt-repository ppa:flatpak/stable
+sudo apt update
+sudo apt install flatpak
 # DOCKER DESKTOP
 sudo apt update && sudo apt install -y software-properties-common && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && sudo apt update && sudo apt install -y docker-desktop
 # APT FAST
@@ -27,7 +39,7 @@ sudo snap install postman
 # VSCODE
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/vscode.gpg > /dev/null && echo "deb [signed-by=/usr/share/keyrings/vscode.gpg] https://packages.microsoft.com/repos/vscode stable main" | sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null && sudo apt update && sudo apt install -y code
 
-# CLOUDFLARE GUI
+# CLOUDFLARE GUI - LINUX MINT
 curl -fsSL https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ jammy main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
 sudo apt-get update && sudo apt-get install cloudflare-warp
