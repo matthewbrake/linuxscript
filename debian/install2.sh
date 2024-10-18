@@ -27,7 +27,7 @@ sudo apt install -y \
     clonezilla p7zip-full qemu-system qemu-utils xterm open-vm-tools id-utils \
     xauth x11-xserver-utils dbus-x11 libgl1-mesa-dri xserver-xorg-video-qxl x11-apps \
     extrepo snap flatpak debhelper gftp grub-common grub-pc grub-customizer os-prober \
-    unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract file-roller
+    unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract file-roller open-vm-tools-desktop
 
 echo "-------- DEBIAN CORE UTILITIES --------" 
 sudo apt install -y \
