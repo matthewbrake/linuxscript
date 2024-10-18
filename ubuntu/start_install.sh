@@ -1,5 +1,5 @@
 # Opimizations
-sudo apt update && sudo apt install preload zram-config irqbalance fstrim mesa-utils vulkan-tools ffmpeg libavcodec-extra gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly libdvd-pkg tlp powertop hddtemp lm-sensors
+sudo apt update && sudo apt install preload zram-config irqbalance mesa-utils vulkan-tools ffmpeg libavcodec-extra gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly libdvd-pkg tlp powertop lm-sensors
 
 # SNAP STORE 
 sudo rm /etc/apt/preferences.d/nosnap.pref
