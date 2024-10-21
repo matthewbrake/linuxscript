@@ -23,3 +23,10 @@ setfacl -Rdm u::rwX,g::rwX,o::rX "$DIR_PATH"
 setfacl -Rm u::rwX,g::rwX,o::rX "$DIR_PATH"
 
 echo "Directory $DIR_PATH has been set up with owner $OWNER, group $GROUP, and permissions $PERMS"
+
+################################### - Manual - #######################################
+sudo chown -R user:user /HDD/cloudpioneers/media
+sudo chmod -R 755 /HDD/cloudpioneers/media
+sudo chmod g+s /HDD/cloudpioneers/media
+sudo setfacl -Rdm u::rwx,g::rx,o::rx /HDD/cloudpioneers/media
+sudo setfacl -Rm u::rwx,g::rx,o::rx /HDD/cloudpioneers/media
